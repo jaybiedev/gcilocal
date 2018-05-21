@@ -1,0 +1,31 @@
+@media print {
+	.event-printing.single-event .body{
+	display:none;
+	}
+	.event-printing.single-event #ticketModal{
+		display:block;
+	}
+	.event-printing .modal-footer{
+		display:none;
+	}
+	.event-printing .modal-content{
+		box-shadow:none;
+		border:0;
+	}
+	.event-printing .modal-header .close{
+		display:none;
+	}
+	.event-printing .event-ticket .event-location{
+		font-size:14px!important;
+	}
+	.event-printing .event-area{
+		display:none;
+	}
+	.event-printing .event-ticket-left{
+		border-color:#999;
+	}
+	.event-printing .ticket-cost{
+		background-color: #f0ad4e!important;
+		color:#fff!important;
+	}
+}
