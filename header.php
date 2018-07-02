@@ -3,9 +3,7 @@
 <html <?php language_attributes(); ?> class="no-js">
 <head>
 <?php
-
 	$options = get_option('imic_options');
-
    	/** Theme layout design * */
   	$bodyClass = ($options['site_layout'] == 'boxed') ? ' boxed' : '';
    	$style='';
@@ -65,6 +63,10 @@ if($offset=='') {
 	$offset = "Australia/Melbourne";
 }
 date_default_timezone_set($offset);
+
+$front_page_id = get_option( 'page_on_front' );
+$online_giving_gci_church_id  = get_post_meta($front_page_id,'imic_online_giving_gci_church_id',true);
+
 ?>
 <!-- CSS
 ================================================== -->
@@ -76,6 +78,7 @@ date_default_timezone_set($offset);
 ?>
 <?php //  WORDPRESS HEAD HOOK
  wp_head(); ?>
+ <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <!--// CLOSE HEAD //-->
 <body <?php body_class($bodyClass); echo $style;  ?>>
@@ -101,7 +104,7 @@ date_default_timezone_set($offset);
                         <div class="collapse navbar-collapse pull-right" id="bs-navbar-collapse">
                             <!-- has online-giving page-->
                             <div class="pull-right online-giving-top">
-                                <a class="btn btn-primary">ONLINE GIVING</a>
+                                <a class="btn btn-primary" href="https://www.gci.org/online-giving/?churchnumber=<?php echo $online_giving_gci_church_id;?>" target="_online_giving">ONLINE GIVING</a>
                             </div>
                             <div class="pull-right font-color-theme search-top" title="Search...">
                                 <i class="fa fa-search font-color-white"></i>
@@ -175,9 +178,13 @@ date_default_timezone_set($offset);
                   	else {
                     	$src = wp_get_attachment_image_src($header_image, 'Full');
                 	}
-                } else {
+                } elseif (!empty($default_header_image)) {
 		  			$src[0] = $default_header_image;
 				}
+				else {
+				    $src[0] = get_template_directory_uri() . "/images/default-banner.png";
+				}
+				
 				?>
                 <!-- Start Nav Backed Header -->
                 <?php
@@ -316,27 +323,28 @@ date_default_timezone_set($offset);
                                     <?php
                             } }
                              else if (get_post_type($id) == 'post') {
-                                            if (is_category() || is_tag()) {
-                                                echo '<div class="col-md-8 col-sm-8">
-                                    <h1>' . __('All Posts For - ', 'framework') . single_term_title("", false) . '</h1>
-                                  </div>';
-                                            } else {
-                                                if ($page_for_posts == 0 && !is_single()) {
-                                                    $imic_post_custom_title = __('Blog', 'framework');
-                                                } else if ($page_for_posts > 0 && !is_single()) {
-                                                    $imic_post_custom_title = get_the_title($page_for_posts);
-                                                } else {
-                                                    $imic_post_custom_title = !empty($custom['imic_post_page_custom_title'][0]) ? $custom['imic_post_page_custom_title'][0] : 'Blog';
-                                                }
-                                                echo '<div class="col-md-8 col-sm-8">
-                                    <h1>' . $imic_post_custom_title . '</h1>
-                                  </div>';
-                                                if (!empty($custom['imic_post_custom_description'][0])) {
-                                                    echo'<div class="col-md-4 col-sm-4">
-                                        <p>' . $custom['imic_post_custom_description'][0] . '</p>
-                                     </div>';
-                                                } } }
-                                       else if(get_post_type($id) == 'sermons') {
+                                if (is_category() || is_tag()) {
+                                    echo '<div class="col-md-8 col-sm-8">
+                                        <h1>' . __('All Posts For - ', 'framework') . single_term_title("", false) . '</h1>
+                                    </div>';
+                                } else {
+                                    if ($page_for_posts == 0 && !is_single()) {
+                                        $imic_post_custom_title = __('Article', 'framework');
+                                    } else if ($page_for_posts > 0 && !is_single()) {
+                                        $imic_post_custom_title = get_the_title($page_for_posts);
+                                    } else {
+                                        $imic_post_custom_title = !empty($custom['imic_post_page_custom_title'][0]) ? $custom['imic_post_page_custom_title'][0] : 'Article';
+                                    }
+                                    echo '<div class="col-md-8 col-sm-8">
+                                            <h1>' . $imic_post_custom_title . '</h1>
+                                        </div>';
+                                    if (!empty($custom['imic_post_custom_description'][0])) {
+                                        echo'<div class="col-md-4 col-sm-4">
+                                            <p>' . $custom['imic_post_custom_description'][0] . '</p>
+                                            </div>';
+                                    }   
+                            } }
+                           else if(get_post_type($id) == 'sermons') {
                                 $term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
                                 if (!empty($term->term_id)) {
                                     echo '<div class="col-md-12">

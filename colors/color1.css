@@ -7,6 +7,12 @@ h1.font-color-theme,.font-color-theme {
 a:hover{
 	color:#d3ab39;
 }
+ul#menu-footer-menu li.menu-item a {
+	color:#d3ab39;
+}
+ul#menu-footer-menu li.menu-item a:hover {
+	color:#ddd;
+}
 .events-listing .event-detail h4 a:hover, .featured-sermon h4 a:hover, .featured-gallery p, .post-more:hover, .widget_recent_comments a:hover{
 	opacity:.9
 }

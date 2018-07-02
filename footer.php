@@ -17,33 +17,31 @@ $show_on_front = get_option('show_on_front');
 </footer>
 <?php endif; ?>
 <footer class="site-footer-bottom">
-    <div class="container">
-        <div class="row">
-            <?php
-            if (!empty($options['footer_copyright_text'])) {
-                echo '<div class="copyrights-col-left col-md-6 col-sm-6">'; ?>
-                <p><?php _e('&copy; ','framework'); echo date('Y '); bloginfo('name'); _e('. ','framework'); echo $options['footer_copyright_text']; ?></p>
-                <?php echo '</div>';
-            }
-            ?>
-            <div class="copyrights-col-right col-md-6 col-sm-6">
-                <div class="social-icons">
-                    <?php
-                    $socialSites = $imic_options['footer_social_links'];
-					foreach($socialSites as $key => $value) {
-						if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                        echo '<a href="mailto:' . $value . '"><i class="fa ' . $key . '"></i></a>';
-						}
-						elseif (filter_var($value, FILTER_VALIDATE_URL)) {
-							echo '<a href="' . $value . '" target="_blank"><i class="fa ' . $key . '"></i></a>';
-						}
-						elseif($key == 'fa-skype' && $value != '' && $value != 'Enter Skype ID') {
-							echo '<a href="skype:' . $value . '?call"><i class="fa ' . $key . '"></i></a>';
-						}
+    <div class="row">
+        <?php
+        if (!empty($options['footer_copyright_text'])) {
+            echo '<div class="copyrights-col-left col-md-6 col-sm-6">'; ?>
+            <p><?php _e('&copy; ','framework'); echo date('Y '); bloginfo('name'); _e('. ','framework'); echo $options['footer_copyright_text']; ?></p>
+            <?php echo '</div>';
+        }
+        ?>
+        <div class="copyrights-col-right col-md-6 col-sm-6">
+            <div class="social-icons">
+                <?php
+                $socialSites = $imic_options['footer_social_links'];
+				foreach($socialSites as $key => $value) {
+					if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    echo '<a href="mailto:' . $value . '"><i class="fa ' . $key . '"></i></a>';
 					}
-                    ?>
-                  </div>
-            </div>
+					elseif (filter_var($value, FILTER_VALIDATE_URL)) {
+						echo '<a href="' . $value . '" target="_blank"><i class="fa ' . $key . '"></i></a>';
+					}
+					elseif($key == 'fa-skype' && $value != '' && $value != 'Enter Skype ID') {
+						echo '<a href="skype:' . $value . '?call"><i class="fa ' . $key . '"></i></a>';
+					}
+				}
+                ?>
+              </div>
         </div>
     </div>
 </footer>

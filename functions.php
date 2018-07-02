@@ -265,6 +265,16 @@ add_action( 'wp_enqueue_scripts', 'replace_core_jquery_version' );
 
 
 // savvy
+function replace_text_wps($text){
+    $replace = array(
+        // 'WORD TO REPLACE' => 'REPLACE WORD WITH THIS'
+        '[q:yt]' => $_REQUEST['yt'],
+    );
+    $text = str_replace(array_keys($replace), $replace, $text);
+    return $text;
+}
+add_filter('the_content', 'replace_text_wps'); add_filter('the_excerpt', 'replace_text_wps');
+
 if (!function_exists('pprint_r')) {
     function pprint_r($data)
     {

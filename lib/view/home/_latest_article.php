@@ -38,14 +38,20 @@ $articles = get_posts(
            
             $image_url = get_the_post_thumbnail_url($item->ID);
         ?>
-            	<div class="col-lg-3" style="background:url('<?php echo $image_url;?>');">
-            	</div>
+            	<div class="col-lg-3">
+			<div class="latest-article-img" 
+				style="background:url('<?php echo $image_url;?>') no-repeat;background-size:contain;">
+            		</div>
+		</div>
             	<div class="col-lg-9">
             		<h1><?php echo $title;?></h1>
-            		<p><?php echo $content;?></p>
-					<a href=""  class="btn btn-primary">Read More</a>
+            		<div class="latest-article-body" style="height:165px; overflow:hidden; margin-bottom:20px;width:80%;">
+            		<p><?php echo substr($content,0, 500) . "...";?></p>
+            		</div>
+					<a href=""  class="btn btn-primary">READ MORE</a>
             	</div>
         <?php
+            break;
         }
    
     ?>

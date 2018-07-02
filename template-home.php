@@ -9,12 +9,15 @@ include_once(get_template_directory() . "/lib/classes/Featurebox.php");
 include_once(get_template_directory() . "/lib/classes/Carousel.php");
 include_once(get_template_directory() . "/lib/classes/BackgroundImage.php");
 
+$front_page_id = get_option( 'page_on_front' );
 
-$custom_home = get_post_custom(get_the_ID());
-$home_id = get_the_ID();
+// $custom_home = get_post_custom($frontpage_id);
+// $front_page_id = get_the_ID();
 $pageOptions = imic_page_design('',8); //page design options
 imic_sidebar_position_module();
 
+$show_recent_events_area = get_post_meta($front_page_id,'imic_imic_upcoming_events',true);
+$show_galleries_area = get_post_meta($front_page_id,'imic_imic_galleries',true);
 
 $front_page_splash = get_post_field("imic_pages_Choose_slider_display", true);
 
@@ -33,28 +36,22 @@ $temp_wp_query = clone $wp_query;
 $today = date('Y-m-d');
 $currentTime = date(get_option('time_format'));
 $upcomingEvents = '';
-$upcoming_events_category = get_post_meta(get_the_ID(),'imic_upcoming_event_taxonomy',true);
+$upcoming_events_category = get_post_meta($front_page_id, 'imic_upcoming_event_taxonomy',true);
 if(!empty($upcoming_events_category)){
     $events_categories= get_term_by('id',$upcoming_events_category,'event-category');
     $upcoming_events_category= $events_categories->slug;
 }
-$imic_events_to_show_on = get_post_meta(get_the_ID(),'imic_events_to_show_on',true);
+$imic_events_to_show_on = get_post_meta($front_page_id,'imic_events_to_show_on',true);
 $imic_events_to_show_on=!empty($imic_events_to_show_on)?$imic_events_to_show_on:4;
 $event_add = imic_recur_events('future','nos',$upcoming_events_category,'');
 
 $google_events = getGoogleEvent();
 if(!empty($google_events))
-    $new_events = $google_events+$event_add;
+    $new_events = $google_events + $event_add;
 else
     $new_events = $event_add;
 
 ksort($new_events);
-
-// Feature Box
-$has_feature_box = get_post_meta($home_id,'imic_imic_featured_blocks',true);
-$featured_blocks = get_post_meta($home_id,'imic_home_row_featured_blocks',true);
-$featured_blocks_ids = preg_split('@[\s,]+@', get_post_meta($home_id,'imic_home_featured_blocks',true), NULL, PREG_SPLIT_NO_EMPTY);
-
 
 if(!empty($new_events)){
     $nos_event = 1;
@@ -162,16 +159,16 @@ $wp_query = clone $temp_wp_query;
 ?>
 <!-- Start Notice Bar -->
 <?php
-$imic_custom_message = get_post_meta($home_id,'imic_custom_text_message',true);
-$imic_latest_sermon_events = get_post_meta($home_id, 'imic_latest_sermon_events_to_show_on', true);
-$imic_all_event_sermon_url= get_post_meta($home_id, 'imic_all_event_sermon_url', true);
-$imic_upcoming_events_area = get_post_meta($home_id,'imic_upcoming_area',true);
+$imic_custom_message = get_post_meta($front_page_id,'imic_custom_text_message',true);
+$imic_latest_sermon_events = get_post_meta($front_page_id, 'imic_latest_sermon_events_to_show_on', true);
+$imic_all_event_url= get_post_meta($front_page_id, 'imic_all_event_url', true);
+$imic_upcoming_events_area = get_post_meta($front_page_id,'imic_upcoming_area',true);
 
 if($imic_upcoming_events_area==1)  {
     if ((!empty($firstEventTitle) && $imic_latest_sermon_events == 'letest_event')||(!empty($firstEventTitle) && $imic_latest_sermon_events=='')) { ?>
         <div class="notice-bar">
         <div class="container">
-        <?php $imic_going_on_events = get_post_meta($home_id, 'imic_going_on_events', true);
+        <?php $imic_going_on_events = get_post_meta($front_page_id, 'imic_going_on_events', true);
 
         if($imic_going_on_events==2) {
             $event_add_going = imic_recur_events('future','nos','','');
@@ -205,7 +202,7 @@ if($imic_upcoming_events_area==1)  {
             ksort($new_events);
 
             if(!empty($new_events)) {
-                $imic_custom_going_on_events_title = get_post_meta($home_id, 'imic_custom_going_on_events_title', true);
+                $imic_custom_going_on_events_title = get_post_meta($front_page_id, 'imic_custom_going_on_events_title', true);
                 $imic_custom_going_on_events_title=!empty($imic_custom_going_on_events_title)?$imic_custom_going_on_events_title:__('Going on Events','framework');
                 echo '<div class="goingon-events-floater">';
                 echo '<h4>'.$imic_custom_going_on_events_title.'</h4>';
@@ -288,7 +285,7 @@ if($imic_upcoming_events_area==1)  {
 
                 <?php
                 $specific_event_data='';
-                $event_category= get_post_meta($home_id,'imic_advanced_event_taxonomy','true');
+                $event_category= get_post_meta($front_page_id,'imic_advanced_event_taxonomy','true');
 
                 if($event_category!='') {
                     $event_categories= get_term_by('id',$event_category,'event-category');
@@ -329,10 +326,10 @@ if($imic_upcoming_events_area==1)  {
                     'meta_value' => 'template-events.php'
                 ));
 
-                if(!empty($imic_all_event_sermon_url)||!empty($pages_e[0]->ID)) {
-                    $imic_all_event_sermon_url = !empty($imic_all_event_sermon_url) ? $imic_all_event_sermon_url: get_permalink($pages_e[0]->ID); ?>
+                if(!empty($imic_all_event_url)||!empty($pages_e[0]->ID)) {
+                    $imic_all_event_url = !empty($imic_all_event_url) ? $imic_all_event_url: get_permalink($pages_e[0]->ID); ?>
                     <div class="col-md-2 col-sm-6 hidden-xs">
-                        <a href="<?php echo $imic_all_event_sermon_url ?>" class="btn btn-primary btn-lg btn-block">
+                        <a href="<?php echo $imic_all_event_url ?>" class="btn btn-primary btn-lg btn-block">
                         <?php _e('All Events', 'framework'); ?></a>
                     </div>
                 <?php } ?>
@@ -351,19 +348,20 @@ if($imic_upcoming_events_area==1)  {
             </div>';
     }
 }
-?>
-<!-- End Notice Bar --> 
-<!-- Start Content -->
+?><!-- End Notice Bar --> 
+
+<!-- Start Home page Content -->
 <div class="main" role="main">
     <div class="full">
-        <div class="container">
-            <div class="page-content">
-                <?php  wp_reset_query();
-                if ($post->post_content != "") {?>
-                    <?php echo the_content();?>
-                <?php }?>
-            </div>
-        </div>
+        <?php  wp_reset_query();
+        $home_page_content =  trim(the_content());
+        if (!empty($home_page_content)) {?>
+	        <div class="container">
+    	        <div class="page-content">
+            	    <?php echo $home_page_content;?>
+	            </div>
+    	    </div>
+	    <?php }?>
         <div class="silver onchurch nav-center featuredbox">
             <!-- <header class="listing-header">
                 <h1 class="text-align-center color-text-white">Featured</h1>
@@ -373,185 +371,60 @@ if($imic_upcoming_events_area==1)  {
             -->
 
             <!-- articles -->
-            <?php include_once(get_template_directory() . "/lib/view/home/_latest_article.php");?>
+            <?php include_once(get_template_directory() . "/lib/view/home/_featured_article.php");?>
         </div>
     </div>
     <div class="sermon featuredbox navy" style="clear:both;">
         <?php require_once(get_template_directory() . "/lib/view/home/_latest_sermon.php");?>
     </div>
+    
     <div class="container-fluid featuredbox onchurch">
         <header class="listing-header">
             <h1 class="text-align-center">News & Events</h1>
             <hr>
             <h2 class="text-align-center color-text-gray">WHAT'S HAPPENING</h2>
         </header>
-        <div class="col-lg-12 content">
                 <!-- news and events -->
-                <?php include_once(get_template_directory() . "/lib/view/home/_news_events.php");?>
-        </div>
-        <div class="onchurch nav-center featuredbox">
+                <?php // include_once(get_template_directory() . "/lib/view/home/_news_events.php");?>
+        <div class="nav-center">
             <div class="container">
                 <ul class="nav nav-pills btn-group">
                     <li class="btn btn-default active"><a data-toggle="pill" href="#media">MEDIA</a></li>
-                    <li class="btn btn-default"><a data-toggle="pill" href="#events">EVENTS</a></li>
-                    <li class="btn btn-default"><a data-toggle="pill" href="#spol">BLOG / ARTICLES</a></li>
-                    <li class="btn btn-default"><a data-toggle="pill" href="#spol">PHOTO GALLERY</a></li>
+                    <li class="btn btn-default"><a data-toggle="pill" href="#news">NEWS</a></li>
+                    <?php if ($show_recent_events_area == '1'){?>
+                    	<li class="btn btn-default"><a data-toggle="pill" href="#events">EVENTS</a></li>
+                	<?php };?>
+                    <li class="btn btn-default"><a data-toggle="pill" href="#articles">ARTICLES</a></li>
+                    <?php if ($show_galleries_area == '1') {?>
+                    	<li class="btn btn-default"><a data-toggle="pill" href="#gallery">PHOTO GALLERY</a></li>
+                	<?php };?>
                 </ul>
                 <div class="tab-content">
                     <div id="media" class="tab-pane fade in active">
                         <div class="container-fluid card-cascade wider">
-                            <?php require_once(get_template_directory() . "/lib/view/home/_spol.php");?>
+                            <?php require_once(get_template_directory() . "/lib/view/home/_media.php");?>
                         </div>
                     </div>
+                    <div id="news" class="tab-pane fade in">
+		                <?php include_once(get_template_directory() . "/lib/view/home/_news.php");?>
+					</div>
+                    <?php if ($show_recent_events_area == '1'){?>
+                        <div id="events" class="tab-pane fade in">
+    		                <?php include_once(get_template_directory() . "/lib/view/home/_events.php");?>
+    					</div>
+                	<?php };?>
+                    <div id="articles" class="tab-pane fade in">
+		                <?php include_once(get_template_directory() . "/lib/view/home/_articles.php");?>
+					</div>
+                    <?php if ($show_galleries_area == '1') {?>
+                        <div id="gallery" class="tab-pane fade in">
+    		                <?php include_once(get_template_directory() . "/lib/view/home/_gallery.php");?>
+    					</div>
+                	<?php };?>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Start Featured Gallery -->
-<?php
-    $gallery_category = get_post_meta($home_id,'imic_home_gallery_taxonomy', true);
-
-    if(!empty($gallery_category)){
-        $gallery_categories= get_term_by('id',$gallery_category,'gallery-category');
-        $gallery_category= $gallery_categories->slug;
-    }
-
-    $imic_imic_galleries = get_post_meta($home_id,'imic_imic_galleries',true);
-    $posts_per_page = get_post_meta($home_id,'imic_galleries_to_show_on',true);
-    $posts_per_page=!empty($posts_per_page)?$posts_per_page:3;
-    $temp_wp_query = clone $wp_query;
-    $gallery_bg_image_id = get_post_meta($home_id,'imic_galleries_background_image',true);
-    $gallery_bg_image = wp_get_attachment_image_src($gallery_bg_image_id, 'full');
-    query_posts(array(
-        'post_type' => 'gallery',
-        'gallery-category' => $gallery_category,
-        'posts_per_page' => $posts_per_page,
-    ));
-
-    if (have_posts()&&$imic_imic_galleries==1):
-       $gallery_size = imicGetThumbAndLargeSize();
-       $size_thumb =$gallery_size[0];
-       $size_large =$gallery_size[1];
-      ?>
-        <div class="featured-gallery <?php if($gallery_bg_image != ''){echo 'parallax parallax8';} ?>" <?php if($gallery_bg_image != ''){echo 'style="background-image:url('.$gallery_bg_image[0].');"';} ?>>
-            <div class="container">
-                <div class="row">
-                    <?php
-                    echo '<div class="col-md-3 col-sm-3">';
-                    $imic_custom_gallery_title = !empty($custom_home['imic_custom_gallery_title'][0]) ? $custom_home['imic_custom_gallery_title'][0] : __('Updates from our gallery', 'framework');
-                    echo'<h4>' . $imic_custom_gallery_title . '</h4>';
-                    $imic_custom_more_galleries_title = !empty($custom_home['imic_custom_more_galleries_title'][0]) ? $custom_home['imic_custom_more_galleries_title'][0] : __('More Galleries', 'framework');
-                    $pages = get_pages(array(
-                        'meta_key' => '_wp_page_template',
-                        'meta_value' => 'template-gallery-pagination.php'
-                    ));
-                    $imic_custom_more_galleries_url = !empty($custom_home['imic_custom_more_galleries_url'][0]) ? $custom_home['imic_custom_more_galleries_url'][0] : get_permalink($pages[0]->ID);
-                    echo'<a href="' . $imic_custom_more_galleries_url . '" class="btn btn-default btn-lg">' . $imic_custom_more_galleries_title . '</a>';
-                    echo '</div>';
-
-                    while (have_posts()):
-
-                        the_post();
-                        $custom = get_post_custom(get_the_ID());
-                        $image_data=  get_post_meta(get_the_ID(),'imic_gallery_images',false);
-                        $thumb_id=get_post_thumbnail_id(get_the_ID());
-
-                        if(!empty($imic_gallery_images)) {
-                          $gallery_img = $imic_gallery_images;
-                        } else {
-                          $gallery_img = '';
-                        }
-                         $post_format_temp = get_post_format();
-
-                        if (has_post_thumbnail() || ((count($image_data) > 0)&&($post_format_temp=='gallery'))):
-                         $post_format =!empty($post_format_temp)?$post_format_temp:'image';
-                         echo '<div class="col-md-3 col-sm-3 post format-' . $post_format . '">';
-                            switch (get_post_format()) {
-                                case 'image':
-                                    $large_src_i = wp_get_attachment_image_src($thumb_id, 'full');
-                                    if(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 0){
-                                        $Lightbox_init = '<a href="'.esc_url($large_src_i[0]) .'" data-rel="prettyPhoto" class="media-box">';
-                                    }elseif(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 1){
-                                        $Lightbox_init = '<a href="'.esc_url($large_src_i[0]) .'" title="'.get_the_title().'" class="media-box magnific-image">';
-                                    }
-                                    echo $Lightbox_init;
-                                    the_post_thumbnail($size_thumb);
-                                    echo'</a>';
-                                    break;
-                                case 'gallery':
-                                    echo '<div class="media-box">';
-                                    imic_gallery_flexslider(get_the_ID());
-                                    if (count($image_data) > 0) {
-                                        echo'<ul class="slides">';
-                                        $i = 0;
-                                        foreach ($image_data as $custom_gallery_images) {
-                                        $large_src = wp_get_attachment_image_src($custom_gallery_images, 'full');
-                                        $gallery_thumbnail = wp_get_attachment_image_src($custom_gallery_images, $size_thumb);
-                                        $gallery_title = get_the_title($custom_gallery_images);
-                                        echo'<li class="item">';
-                                        if(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 0){
-                                            $Lightbox_init = '<a href="' .esc_url($large_src[0]). '"data-rel="prettyPhoto[' . get_the_title() . ']">';
-                                        }elseif(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 1){
-                                            $Lightbox_init = '<a href="'.esc_url($large_src[0]) .'" title="'.esc_attr($gallery_title).'" class="magnific-gallery-image">';
-                                        }
-                                        echo $Lightbox_init;
-                                        if($i === 0){
-                                              echo '<img src="'.$gallery_thumbnail[0].'" alt="' .esc_attr($gallery_title). '" >';
-                                        } else {
-                                              echo '<img class="lazy" data-src="'.$gallery_thumbnail[0].'" alt="' .esc_attr($gallery_title). '" >';
-                                        }
-                                        echo'</a></li>';
-                                        $i++;
-                                        }
-                                        echo'</ul>';
-                                    }
-                                    echo'</div>
-                                    </div>';
-                                    break;
-                                case 'link':
-                                    if (!empty($custom['imic_gallery_link_url'][0])) {
-                                        echo '<a href="' . $custom['imic_gallery_link_url'][0] . '" target="_blank" class="media-box">';
-                                        the_post_thumbnail($size_thumb);
-                                        echo'</a>';
-                                    }
-                                    break;
-                                case 'video':
-                                    if (!empty($custom['imic_gallery_video_url'][0])) {
-                                       if(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 0){
-                                            $Lightbox_init = '<a href="' . $custom['imic_gallery_video_url'][0] . '" data-rel="prettyPhoto" class="media-box">';
-                                        }elseif(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 1){
-                                            $Lightbox_init = '<a href="' . $custom['imic_gallery_video_url'][0] . '" title="'.get_the_title().'" class="media-box magnific-video">';
-                                        }
-                                        echo $Lightbox_init;
-                                        the_post_thumbnail($size_thumb);
-                                        echo'</a>';
-                                    }
-                                    break;
-                                default:
-                                    $large_src_i = wp_get_attachment_image_src($thumb_id, 'full');
-                                    if(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 0){
-                                        $Lightbox_init = '<a href="'.esc_url($large_src_i[0]) .'" data-rel="prettyPhoto" class="media-box">';
-                                    }elseif(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 1){
-                                        $Lightbox_init = '<a href="'.esc_url($large_src_i[0]) .'" title="'.get_the_title().'" class="media-box magnific-image">';
-                                    }
-                                    echo $Lightbox_init;
-                                    the_post_thumbnail($size_thumb);
-                                    echo'</a>';
-                                    break;
-                            }
-                            echo'</div>';
-                        endif;
-                    endwhile;
-                    ?>
-                </div>
-            </div>
-        </div>
-        <?php
-    endif;
-
-    wp_reset_query();
-    //-- End Featured Gallery --
-    get_footer();
-?>
+<?php 
+get_footer();

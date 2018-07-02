@@ -10,8 +10,10 @@ class Featurebox extends AbstractComponent  {
     public $excerpt;
     public $description;
     public $Post;
+    
+    private $front_page_id;
 
-    function __construct($post_id) {
+    function __construct($post_id=null) {
 
         if (!empty($post_id)) {
             $this->post_id = $post_id;
@@ -40,6 +42,14 @@ class Featurebox extends AbstractComponent  {
             case 'youtube':
                 $html = $this->getYoutubeContent();
                 break;
+            case 'media-youtube-spol':
+            case 'media-youtube':
+            case 'media-sermon':
+                $html = $this->getMediaContent();
+                break;
+            case 'gallery':
+                $html = $this->getGalleryContent();
+                break;
             default:
                 $html = $this->getContent();
                 break;
@@ -58,6 +68,13 @@ class Featurebox extends AbstractComponent  {
         }
 
         return $this->image_url;
+    }
+    
+    function getPermalink() {
+        if (empty($this->Post->permalink)) {
+            $this->Post->permalink = get_permalink($this->Post);
+        }
+        return $this->Post->permalink;        
     }
 
     function getTitle() {
@@ -78,6 +95,7 @@ class Featurebox extends AbstractComponent  {
 
         //             <img src="{$this->Post->thumbnail_url}" class="img-fluid" alt="{$this->Post->post_title}">
         $image_url = $this->getImageUrl();
+        $permalink = $this->getPermalink();
         $html =<<<HTML
 <div class="card">
 
@@ -94,7 +112,7 @@ class Featurebox extends AbstractComponent  {
             <h4 class="card-title">{$this->Post->post_title}</h4>
             <!--Text-->
             <p class="card-text">{$caption}</p>
-            <a href="{$this->Post->permalink}" class="btn btn-secondary">LEARN MORE</a>
+            <a href="{$permalink}" class="btn btn-secondary">LEARN MORE</a>
         </div>
 
     </div>
@@ -103,6 +121,81 @@ HTML;
         return $html;
     }
 
+    // photo gallery
+    function getGalleryContent() {
+        
+        $caption = substr($this->Post->caption, 0,100);
+        
+        //if (empty($caption))
+        //    $caption = $this->Post->post_content;
+        
+        if (strlen($caption) > 100) {
+            $caption = substr($caption, 0, 100);
+            $caption .= "...";
+        }
+        
+        //             <img src="{$this->Post->thumbnail_url}" class="img-fluid" alt="{$this->Post->post_title}">
+        $image_url = $this->getImageUrl();
+        $permalink = $this->getPermalink();
+        $html =<<<HTML
+<a href="{$permalink}">
+    <div class="card gallery">
+        <!--Card image-->
+        <div class="view overlay" style="background:url('{$image_url}')">
+        </div>        
+    </div>
+</a>
+HTML;
+        
+        return $html;
+    }
+    
+    // SPOL or Sermons
+    function getMediaContent() {
+        
+        // $caption = substr($this->Post->caption, 0,100);
+        $caption = date('F j, Y', strtotime($this->Post->post_date));
+        
+        if (strlen($caption) > 100) {
+            $caption = substr($caption, 0, 100);
+            $caption .= "...";
+        }
+        
+        $permalink = $this->Post->permalink;
+        if ($this->Post->post_type == 'media-youtube-spol') {
+            $spol_url= $this->getDestinationUrl('imic_media_spol_page_url');
+
+            if (!empty($spol_url))
+                $permalink = $spol_url . "?yt={$this->Post->id}";
+        }
+                
+        $image_url = $this->getImageUrl();
+        $html =<<<HTML
+<div class="card">
+
+        <!--Card image-->
+        <div class="view overlay" style="background:url('{$image_url}')">
+            <a href="{$permalink}">
+            <i class="fa fa-play-circle" post-type="{$this->Post->post_type}" media-url="{$this->Post->permalink}"></i>
+            </a>
+        </div>
+        
+        <!--Card content-->
+        <div class="card-body">
+            <!--Title-->
+            <h4 class="card-title">{$this->Post->post_title}</h4>
+            <!--Text-->
+            <p class="card-text">{$caption}</p>
+            <!--Text-->
+            <p class="card-text uppercase">{$this->Post->author}</p>
+        </div>
+        
+    </div>
+HTML;
+        
+        return $html;
+    }
+    
     function getYoutubeContent() {
 
         $caption = substr($this->Post->caption, 0,100);
@@ -111,7 +204,7 @@ HTML;
 
         //             <img src="{$this->Post->thumbnail_url}" class="img-fluid" alt="{$this->Post->post_title}">
 
-        $source_url = "https://www.youtube.com/embed/_83h6A-Haw0";
+        $source_url = "https://www.youtube.com/embed/{$this->Post->id}";
         $html =<<<HTML
 <div class="card">
 
@@ -135,6 +228,17 @@ HTML;
         return $html;
     }
 
+    private function getDestinationUrl($for) {
+        
+        $url = '';
+        if (empty($this->front_page_id))
+            $this->front_page_id = get_option( 'page_on_front' );
+        
+        if (!empty($for))
+            $url= get_post_meta($this->front_page_id, $for, true);
+    
+        return $url;
+    }
 
     public function getSermonContent() {
         $custom = get_post_custom($this->post_id);
@@ -144,7 +248,9 @@ HTML;
         $video_url = $custom['imic_sermons_url'][0];
 
         $frontpage_id = get_option( 'page_on_front' );
-        $all_sermon_url= get_post_meta($frontpage_id, 'imic_all_event_sermon_url', true);
+        $all_sermon_url= $this->getDestinationUrl('imic_all_sermon_url');
+        if (empty($all_sermon_url))
+            $all_sermon_url .= "/sermons";
 
         $media_html = null;
         if (!empty($video_url)) {
