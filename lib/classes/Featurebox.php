@@ -166,7 +166,7 @@ HTML;
             $spol_url= $this->getDestinationUrl('imic_media_spol_page_url');
 
             if (!empty($spol_url))
-                $permalink = $spol_url . "?yt={$this->Post->id}";
+                $permalink = $spol_url . "?yt={$this->Post->id}&title={$this->Post->post_title}#spol-play";
         }
                 
         $image_url = $this->getImageUrl();

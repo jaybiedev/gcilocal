@@ -268,7 +268,9 @@ add_action( 'wp_enqueue_scripts', 'replace_core_jquery_version' );
 function replace_text_wps($text){
     $replace = array(
         // 'WORD TO REPLACE' => 'REPLACE WORD WITH THIS'
-        '[q:yt]' => $_REQUEST['yt'],
+        '[[q:yt]]' => $_REQUEST['yt'],
+        '[[q:title]]' => $_REQUEST['title'],     
+        '[[w:name]]' => get_option('blogname'),
     );
     $text = str_replace(array_keys($replace), $replace, $text);
     return $text;

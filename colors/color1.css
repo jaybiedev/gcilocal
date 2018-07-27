@@ -16,6 +16,9 @@ ul#menu-footer-menu li.menu-item a:hover {
 .events-listing .event-detail h4 a:hover, .featured-sermon h4 a:hover, .featured-gallery p, .post-more:hover, .widget_recent_comments a:hover{
 	opacity:.9
 }
+.page-content a {
+	color:#d3ab39;
+}
 p.drop-caps.secondary:first-child:first-letter, .accent-bg, .fa.accent-color, .btn-primary,
 .btn-primary.disabled,
 .btn-primary[disabled],

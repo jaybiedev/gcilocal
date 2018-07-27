@@ -36,6 +36,9 @@ imic_sidebar_position_module(); ?>
                 ?>
                    <div class="row">
                     <form method="post" id="contactform" name="contactform" class="contact-form-native" action="<?php echo get_template_directory_uri() ?>/mail/contact.php">
+                   <div class="col-lg-12 margin-15">
+                   Please enter your question, comment, or prayer request below.
+                   </div>
                         <div class="col-md-6 margin-15">
                             <div class="form-group">
                                 <input type="text" id="name" name="name"  class="form-control input-lg" placeholder="<?php _e('Name*','framework'); ?>">
