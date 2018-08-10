@@ -131,7 +131,7 @@ $imic_custom_message = get_post_meta($home_id,'imic_custom_text_message',true);
 $imic_all_event_sermon_url= get_post_meta($home_id, 'imic_all_event_sermon_url', true);
  $imic_upcoming_events_area = get_post_meta($home_id,'imic_upcoming_area',true);
 if($imic_upcoming_events_area==1) {
-if ((!empty($firstEventTitle) && $imic_latest_sermon_events == 'letest_event')||(!empty($firstEventTitle) && $imic_latest_sermon_events=='')) {
+if ((!empty($firstEventTitle) && $imic_latest_sermon_events == 'latest_event')||(!empty($firstEventTitle) && $imic_latest_sermon_events=='')) {
     ?>
 <div class="notice-bar">
 <div class="container">
@@ -269,7 +269,7 @@ endforeach;
             </div>
         </div>
     </div>
-<?php } elseif($imic_latest_sermon_events == 'letest_sermon') {
+<?php } elseif($imic_latest_sermon_events == 'latest_sermon') {
    $sermons_cat='';
    $advanced_sermons_category= get_post_meta($home_id,'imic_advanced_sermons_category',true);
    if(!empty($advanced_sermons_category)){

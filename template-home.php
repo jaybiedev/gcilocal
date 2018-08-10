@@ -6,6 +6,7 @@ get_header();
 global $imic_options;
 
 include_once(get_template_directory() . "/lib/classes/Featurebox.php");
+include_once(get_template_directory() . "/lib/classes/PostHelper.php");
 include_once(get_template_directory() . "/lib/classes/Carousel.php");
 include_once(get_template_directory() . "/lib/classes/BackgroundImage.php");
 
@@ -16,8 +17,13 @@ $front_page_id = get_option( 'page_on_front' );
 $pageOptions = imic_page_design('',8); //page design options
 imic_sidebar_position_module();
 
-$show_recent_events_area = get_post_meta($front_page_id,'imic_imic_upcoming_events',true);
+// flags for News and Events
+$show_recent_news_area = get_post_meta($front_page_id,'imic_imic_recent_posts',true);
+$show_recent_media_area = get_post_meta($front_page_id,'imic_imic_recent_media_area',true);
+$show_recent_events_area = get_post_meta($front_page_id,'imic_imic_recent_events_area',true);
+$show_recent_articles_area = get_post_meta($front_page_id,'imic_imic_recent_articles_area',true);
 $show_galleries_area = get_post_meta($front_page_id,'imic_imic_galleries',true);
+$cards_all = PostHelper::getHomePageCards();
 
 $front_page_splash = get_post_field("imic_pages_Choose_slider_display", true);
 
@@ -165,7 +171,7 @@ $imic_all_event_url= get_post_meta($front_page_id, 'imic_all_event_url', true);
 $imic_upcoming_events_area = get_post_meta($front_page_id,'imic_upcoming_area',true);
 
 if($imic_upcoming_events_area==1)  {
-    if ((!empty($firstEventTitle) && $imic_latest_sermon_events == 'letest_event')||(!empty($firstEventTitle) && $imic_latest_sermon_events=='')) { ?>
+    if ((!empty($firstEventTitle) && $imic_latest_sermon_events == 'latest_event')||(!empty($firstEventTitle) && $imic_latest_sermon_events=='')) { ?>
         <div class="notice-bar">
         <div class="container">
         <?php $imic_going_on_events = get_post_meta($front_page_id, 'imic_going_on_events', true);
@@ -388,36 +394,56 @@ if($imic_upcoming_events_area==1)  {
                 <?php // include_once(get_template_directory() . "/lib/view/home/_news_events.php");?>
         <div class="nav-center">
             <div class="container">
-                <ul class="nav nav-pills btn-group">
-                    <li class="btn btn-default active"><a data-toggle="pill" href="#media">MEDIA</a></li>
-                    <li class="btn btn-default"><a data-toggle="pill" href="#news">NEWS</a></li>
+                <ul class="nav nav-pills btn-group"> 
+                    <li class="btn btn-default active"><a data-toggle="pill" href="#all-cards">ALL</a></li>
+                    <?php if ($show_recent_news_area == '1'){?>
+	                    <li class="btn btn-default"><a data-toggle="pill" href="#news">NEWS</a></li>
+                	<?php };?>
+                    <?php if ($show_recent_media_area == '1'){?>
+	                    <li class="btn btn-default"><a data-toggle="pill" href="#media">MEDIA</a></li>
+                	<?php };?>
                     <?php if ($show_recent_events_area == '1'){?>
                     	<li class="btn btn-default"><a data-toggle="pill" href="#events">EVENTS</a></li>
                 	<?php };?>
-                    <li class="btn btn-default"><a data-toggle="pill" href="#articles">ARTICLES</a></li>
+                    <?php if ($show_recent_articles_area == '1'){?>
+	                    <li class="btn btn-default"><a data-toggle="pill" href="#articles">ARTICLES</a></li>
+                	<?php };?>
                     <?php if ($show_galleries_area == '1') {?>
                     	<li class="btn btn-default"><a data-toggle="pill" href="#gallery">PHOTO GALLERY</a></li>
                 	<?php };?>
                 </ul>
                 <div class="tab-content">
-                    <div id="media" class="tab-pane fade in active">
-                        <div class="container-fluid card-cascade wider">
-                            <?php require_once(get_template_directory() . "/lib/view/home/_media.php");?>
+                    <div id="all-cards" class="tab-pane fade in active">
+                        <div class="listing all-listing">
+                            <?php foreach ($cards_all as $Featurebox) { ?>
+                                <div class="col-lg-4">
+                                    <?php echo $Featurebox->render();?>
+                                </div>
+                            <?php } ?>
+                        </div>		                
+					</div>
+                	<?php if ($show_recent_news_area == '1') {?>
+	                    <div id="news" class="tab-pane fade ">
+		                    <?php include_once(get_template_directory() . "/lib/view/home/_news.php");?>
+                    	</div>
+                	<?php }?>
+                    <?php if ($show_recent_media_area == '1') {?>
+                    	<div id="media" class="tab-pane fade">
+	                        <?php include_once(get_template_directory() . "/lib/view/home/_media.php");?>
                         </div>
-                    </div>
-                    <div id="news" class="tab-pane fade in">
-		                <?php include_once(get_template_directory() . "/lib/view/home/_news.php");?>
-					</div>
+                	<?php }?>
                     <?php if ($show_recent_events_area == '1'){?>
-                        <div id="events" class="tab-pane fade in">
-    		                <?php include_once(get_template_directory() . "/lib/view/home/_events.php");?>
+                        <div id="events" class="tab-pane fade">
+			                <?php include_once(get_template_directory() . "/lib/view/home/_events.php");?>
     					</div>
-                	<?php };?>
-                    <div id="articles" class="tab-pane fade in">
-		                <?php include_once(get_template_directory() . "/lib/view/home/_articles.php");?>
-					</div>
+                	<?php }?>
+	                <?php if ($show_recent_articles_area == '1') {?>                            
+	                    <div id="articles" class="tab-pane fade">
+                            <?php include_once(get_template_directory() . "/lib/view/home/_articles.php");?>
+						</div>
+                	<?php }?>
                     <?php if ($show_galleries_area == '1') {?>
-                        <div id="gallery" class="tab-pane fade in">
+                        <div id="gallery" class="tab-pane fade">
     		                <?php include_once(get_template_directory() . "/lib/view/home/_gallery.php");?>
     					</div>
                 	<?php };?>

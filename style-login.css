@@ -1,0 +1,12 @@
+.login #login {
+	width: 420px;
+}
+
+.login #login h1 {
+		background-color: #ccc;
+	padding-top: 30px
+	}
+.login #login h1 a{
+	background-size: contain;
+	padding-bottom: 0;
+}

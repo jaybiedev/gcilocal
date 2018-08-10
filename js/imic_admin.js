@@ -160,7 +160,7 @@ jQuery(function(jQuery) {
 		var $imic_custom_message = jQuery('#imic_custom_text_message').closest('.rwmb-textarea-wrapper');
 		var $imic_button_url = jQuery('#imic_all_event_sermon_url').closest('.rwmb-text-wrapper');
 		var $imic_going_event_title = jQuery('#imic_custom_going_on_events_title').closest('.rwmb-text-wrapper');
-      if ($imic_latest_sermon_events_to_show_on.val() =='letest_event') {
+      if ($imic_latest_sermon_events_to_show_on.val() =='latest_event') {
             $event_taxonomy.show();
             $imic_going_on_events.show();
             $sermons_taxonomy.hide();
@@ -168,7 +168,7 @@ jQuery(function(jQuery) {
 			$imic_going_event_title.show();
             going_on_events();
         }
-        else if($imic_latest_sermon_events_to_show_on.val() == 'letest_sermon'){
+        else if($imic_latest_sermon_events_to_show_on.val() == 'latest_sermon'){
              $event_taxonomy.hide();
              $imic_going_on_events.hide();
 			 $imic_custom_message.hide();

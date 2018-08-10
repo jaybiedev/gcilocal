@@ -1535,6 +1535,7 @@ ul.nav.navbar-nav li > a:hover {
 ul.nav.navbar-nav .dropdown-menu li {
 	border-bottom: 1px solid #ccc;
 	padding: 5px 0;
+	font-size: 18px;
 }
 ul.nav.navbar-nav .dropdown-menu li:last-child {
 	border-bottom: none;
@@ -4525,7 +4526,8 @@ only screen and (                min-resolution: 2dppx) {
 	color: #161b2d;
 }
 
-.media-listing .view .fa-play-circle {
+.media-listing .view .fa-play-circle,
+.all-listing .view .fa-play-circle { 
 	font-size: 5em;
     margin-top: 33%;
     opacity: 0.80;

@@ -501,12 +501,6 @@ $meta_boxes[] = array(
     'title' => __('Page/Post Header Options', 'framework'),
    	'pages' => array('post','page','sermons','event','product', 'staff'),
     'fields' => array(
-        array(
-            'name' => __('Online Giving GCI Church ID', 'framework'),
-            'id' => $prefix . 'online_giving_gci_church_id',
-            'desc' => __("GCI Local Church ID", 'framework'),
-            'type' => 'text',
-        ),
         
         // Custom title
         array(
@@ -931,6 +925,7 @@ $meta_boxes[] = array(
     )
 );
 /* * **Home Page Meta Box1 *** */
+/*
 $meta_boxes[] = array(
     'id' => 'template-home1',
     'title' => __('Slider Metabox', 'framework'),
@@ -1020,6 +1015,7 @@ $meta_boxes[] = array(
             ),
         ),
         ));
+*/        
 /* * **Home Second Meta Box1 *** */
 $meta_boxes[] = array(
     'id' => 'template-h-second-1',
@@ -1067,7 +1063,7 @@ $meta_boxes[] = array(
 /* * **Home Page Meta Box6 *** */
 $meta_boxes[] = array(
     'id' => 'template-home6',
-    'title' => __('Select option for Area Under Slider', 'framework'),
+    'title' => __('Select option for Area Under Banner', 'framework'),
     'pages' => array('page'),
 	'show' => array(
 	// With all conditions below, use this logical operator to combine them. Default is 'OR'. Case insensitive. Optional.
@@ -1078,9 +1074,9 @@ $meta_boxes[] = array(
     'show_names' => true,
     'fields' => array(
 		array(
-            'name' => __('Switch for section under slider', 'framework'),
+            'name' => __('Switch for section under banner', 'framework'),
             'id' => $prefix . 'upcoming_area',
-            'desc' => __("Select enable or disable to show/hide Event/Sermon under slider.", 'framework'),
+            'desc' => __("Select enable or disable to show/hide Event/Sermon under banner.", 'framework'),
             'type' => 'select',
             'options' => array(
                 '1' => __('Enable', 'framework'),
@@ -1091,11 +1087,11 @@ $meta_boxes[] = array(
         array(
             'name' => __('Recent Event/Sermon', 'framework'),
             'id' => $prefix . 'latest_sermon_events_to_show_on',
-            'desc' => __("Choose latest item to show under slider", 'framework'),
+            'desc' => __("Choose latest item to show under banner", 'framework'),
             'type' => 'select',
             'options' => array(
-                'letest_event' => __('Latest event', 'framework'),
-                'letest_sermon' => __('Latest Sermon', 'framework'),
+                'latest_event' => __('Latest event', 'framework'),
+                'latest_sermon' => __('Latest Sermon', 'framework'),
 				'text' => __('Custom message', 'framework'),
             ),
         ),
@@ -1157,15 +1153,76 @@ $meta_boxes[] = array(
             'type' => 'text',
             'std' => ''
         ),
+        /*
         array(
             'name' => __('All Sermon Button Url', 'framework'),
             'id' => $prefix . 'all_sermon_url',
             'desc' => __("Enter Sermon button URL", 'framework'),
             'type' => 'text',
             'std' => ''
-        ),
+        ),*/
         
     ));
+
+/** Home Featured Article  **/
+$meta_boxes[] = array(
+    'id' => 'template-home4',
+    'title' => __('Settings and Featured Area', 'framework'),
+    'pages' => array('page'),
+    'show' => array(
+        // With all conditions below, use this logical operator to combine them. Default is 'OR'. Case insensitive. Optional.
+        'relation' => 'OR',
+        // List of page templates (used for page only). Array. Optional.
+        'template' => array( 'template-home.php' ),
+    ),
+    'show_names' => true,
+    
+    'fields' => array(
+        array(
+            'name' => __('Online Giving GCI Church ID', 'framework'),
+            'id' => $prefix . 'online_giving_gci_church_id',
+            'desc' => __("GCI Local Church ID", 'framework'),
+            'type' => 'text',
+        ),
+        
+        array(
+            'name' => __('Show featured article', 'framework'),
+            'id' => $prefix . 'featured_article',
+            'desc' => __("Select enable or disable to show/hide featured article.", 'framework'),
+            'type' => 'select',
+            'options' => array(
+                '1' => __('Enable', 'framework'),
+                '2' => __('Disable', 'framework'),
+            ),
+            'std' => '1',
+        ),
+        array(
+            'name' => __('Featured Article to show on home page', 'framework'),
+            'id' => $prefix . 'home_featured_article',
+            'desc' => __("Enter the Posts/Page ID or IDs (comma separated) to show featured article on Home page. example - 1,2,3", 'framework'),
+            'type' => 'text',
+            'std' => ''
+        ),
+        array(
+            'name' => __('Show featured media/sermon', 'framework'),
+            'id' => $prefix . 'featured_media',
+            'desc' => __("Select enable or disable to show/hide featured media or sermon.", 'framework'),
+            'type' => 'select',
+            'options' => array(
+                '1' => __('Enable', 'framework'),
+                '2' => __('Disable', 'framework'),
+            ),
+            'std' => '1',
+        ),
+        array(
+            'name' => __('Featured Sermon or Media to show on home page.', 'framework'),
+            'id' => $prefix . 'home_featured_media',
+            'desc' => __("Enter the Posts ID to show featured sermon/media on Home page. example - 1,2,3 or keyword leave blank to make latest sermon as featured media", 'framework'),
+            'type' => 'text',
+            'std' => ''
+        ),
+    ));
+
 
 /* * **Home Page Meta Box7 *** */
 $meta_boxes[] = array(
@@ -1216,39 +1273,6 @@ $meta_boxes[] = array(
             'name' => __('Number of Events to show on home page', 'framework'),
             'id' => $prefix . 'events_to_show_on',
             'desc' => __("Enter the number of events to show on home page. Example: 3", 'framework'),
-            'type' => 'text',
-            'std' => ''
-        ),
-    ));
-
-/** Home Featured Article  **/
-$meta_boxes[] = array(
-    'id' => 'template-home4',
-    'title' => __('Featured Article Area', 'framework'),
-    'pages' => array('page'),
-    'show' => array(
-        // With all conditions below, use this logical operator to combine them. Default is 'OR'. Case insensitive. Optional.
-        'relation' => 'OR',
-        // List of page templates (used for page only). Array. Optional.
-        'template' => array( 'template-home.php' ),
-    ),
-    'show_names' => true,
-    'fields' => array(
-        array(
-            'name' => __('Show featured article', 'framework'),
-            'id' => $prefix . 'featured_article',
-            'desc' => __("Select enable or disable to show/hide featured article.", 'framework'),
-            'type' => 'select',
-            'options' => array(
-                '1' => __('Enable', 'framework'),
-                '2' => __('Disable', 'framework'),
-            ),
-            'std' => '1',
-        ),
-        array(
-            'name' => __('Featured Article to show on home page', 'framework'),
-            'id' => $prefix . 'home_featured_article',
-            'desc' => __("Enter the Posts/Page ID or IDs (comma separated) to show featured article on Home page. example - 1,2,3", 'framework'),
             'type' => 'text',
             'std' => ''
         ),
@@ -1357,6 +1381,7 @@ $meta_boxes[] = array(
 				'multiple' =>true,
             ),
 		//Custom More Upcoming Events Title
+		/*
 		array(
             'name' => __('Custom More Upcoming Events Title', 'framework'),
             'id' => $prefix . 'custom_upcoming_events_title',
@@ -1370,14 +1395,15 @@ $meta_boxes[] = array(
             'type' => 'text',
             'std' => ''
         ),
+        */
         ));
 
 
-
-/* * **Home Page Meta Box8 Media *** */
+/** Settings for News and Events **/
+/* * **Home Page Meta Box5 *** */
 $meta_boxes[] = array(
-    'id' => 'template-home8',
-    'title' => __('Media Events Area', 'framework'),
+    'id' => 'template-home5',
+    'title' => __('Recent News Posts', 'framework'),
     'pages' => array('page'),
     'show' => array(
         // With all conditions below, use this logical operator to combine them. Default is 'OR'. Case insensitive. Optional.
@@ -1388,8 +1414,75 @@ $meta_boxes[] = array(
     'show_names' => true,
     'fields' => array(
         array(
-            'name' => __('Switch for media list area (SPOL and sermons)', 'framework'),
-            'id' => $prefix . 'imic_media_area',
+            'name' => __('Switch for recent news posts.', 'framework'),
+            'id' => $prefix . 'imic_recent_posts',
+            'desc' => __("Select enable or disable to show/hide news posts.", 'framework'),
+            'type' => 'select',
+            'options' => array(
+                '1' => __('Enable', 'framework'),
+                '2' => __('Disable', 'framework'),
+            ),
+            'std' => '1',
+        ),
+        array(
+            'name'    => __( 'Post Category', 'framework' ),
+            'id'      => $prefix . 'recent_post_taxonomy',
+            'desc' => __("Choose post category", 'framework'),
+            'type'    => 'taxonomy_advanced',
+            'options' => array(
+                // Taxonomy name
+                'taxonomy' => 'category',
+                'type' => 'select',
+                // Additional arguments for get_terms() function. Optional
+                'args' => array('orderby' => 'count', 'hide_empty' => true)
+            ),
+            'std' => '',
+            'multiple' =>true,
+        ),
+        array(
+            'name' => __('Number of Recent Posts to show on home page.', 'framework'),
+            'id' => $prefix . 'posts_to_show_on',
+            'desc' => __("Enter the number of recent posts to show on home page. Example: 3", 'framework'),
+            'type' => 'text',
+            'std' => ''
+        ),
+        /*
+         array(
+         'name' => __('Show read more button', 'framework'),
+         'id' => $prefix . 'recent_posts_rmbutton',
+         'desc' => __("Show read more button for each recent post?", 'framework'),
+         'type' => 'select',
+         'options' => array(
+         '1' => __('Yes', 'framework'),
+         '2' => __('No', 'framework'),
+         ),
+         'std' => '2',
+         ),
+         array(
+         'name' => __('Custom read more button text', 'framework'),
+         'id' => $prefix . 'recent_posts_rmbutton_text',
+         'desc' => __("Enter button text for read more button", 'framework'),
+         'type' => 'text',
+         'std' => ''
+         ), */
+    ));
+/* * **Home Page Meta Box8 Media *** */
+
+$meta_boxes[] = array(
+    'id' => 'template-home8',
+    'title' => __('Media and Sermons Area', 'framework'),
+    'pages' => array('page'),
+    'show' => array(
+        // With all conditions below, use this logical operator to combine them. Default is 'OR'. Case insensitive. Optional.
+        'relation' => 'OR',
+        // List of page templates (used for page only). Array. Optional.
+        'template' => array( 'template-home.php','template-h-third.php' ),
+    ),
+    'show_names' => true,
+    'fields' => array(
+        array(
+            'name' => __('Show media list area (SPOL and sermons)', 'framework'),
+            'id' => $prefix . 'imic_recent_media_area',
             'desc' => __("Select enable or disable to show/hide media list.", 'framework'),
             'type' => 'select',
             'options' => array(
@@ -1413,72 +1506,63 @@ $meta_boxes[] = array(
             'std' => ''
         ),
     ));
+
+
 /** end of media **/
-/* * **Home Page Meta Box5 *** */
 $meta_boxes[] = array(
-    'id' => 'template-home5',
-    'title' => __('Recent News Posts', 'framework'),
+    'id' => 'template-home7b',
+    'title' => __('Recent Events Area', 'framework'),
     'pages' => array('page'),
-	'show' => array(
-	// With all conditions below, use this logical operator to combine them. Default is 'OR'. Case insensitive. Optional.
-	'relation' => 'OR',
-	// List of page templates (used for page only). Array. Optional.
-	'template' => array( 'template-home.php','template-h-third.php' ),
-	), 
+    'show' => array(
+        // With all conditions below, use this logical operator to combine them. Default is 'OR'. Case insensitive. Optional.
+        'relation' => 'OR',
+        // List of page templates (used for page only). Array. Optional.
+        'template' => array( 'template-home.php','template-h-third.php' ),
+    ),
     'show_names' => true,
     'fields' => array(
-		array(
-            'name' => __('Switch for recent news posts.', 'framework'),
-            'id' => $prefix . 'imic_recent_posts',
-            'desc' => __("Select enable or disable to show/hide news posts.", 'framework'),
+        array(
+            'name' => __('Show recent events', 'framework'),
+            'id' => $prefix . 'imic_recent_events_area',
+            'desc' => __("Select enable or disable to show/hide events list.", 'framework'),
             'type' => 'select',
             'options' => array(
                 '1' => __('Enable', 'framework'),
                 '2' => __('Disable', 'framework'),
             ),
-			'std' => '1',
+            'std' => '1',
         ),
-		array(
-        'name'    => __( 'Post Category', 'framework' ),
-        'id'      => $prefix . 'recent_post_taxonomy',
-        'desc' => __("Choose post category", 'framework'),
-        'type'    => 'taxonomy_advanced',
-        'options' => array(
+        array(
+            'name'    => __( 'Events Category', 'framework' ),
+            'id'      => $prefix . 'recent_events_taxonomy',
+            'desc' => __("Choose post category", 'framework'),
+            'type'    => 'taxonomy_advanced',
+            'options' => array(
                 // Taxonomy name
                 'taxonomy' => 'category',
                 'type' => 'select',
                 // Additional arguments for get_terms() function. Optional
                 'args' => array('orderby' => 'count', 'hide_empty' => true)
-                ),
-				'std' => '',
-				'multiple' =>true,
             ),
+            'std' => '',
+            'multiple' =>true,
+        ),
         array(
-            'name' => __('Number of Recent Posts to show on home page.', 'framework'),
-            'id' => $prefix . 'posts_to_show_on',
-            'desc' => __("Enter the number of recent posts to show on home page. Example: 3", 'framework'),
+            'name' => __('Number of Events to show on home page', 'framework'),
+            'id' => $prefix . 'events_to_show_on',
+            'desc' => __("Enter the number of events to show on home page. Example: 9", 'framework'),
             'type' => 'text',
             'std' => ''
         ),
-		array(
-            'name' => __('Show read more button', 'framework'),
-            'id' => $prefix . 'recent_posts_rmbutton',
-            'desc' => __("Show read more button for each recent post?", 'framework'),
-            'type' => 'select',
-            'options' => array(
-                '1' => __('Yes', 'framework'),
-                '2' => __('No', 'framework'),
-            ),
-			'std' => '2',
-        ),
         array(
-            'name' => __('Custom read more button text', 'framework'),
-            'id' => $prefix . 'recent_posts_rmbutton_text',
-            'desc' => __("Enter button text for read more button", 'framework'),
+            'name' => __('URL of the page for more events', 'framework'),
+            'id' => $prefix . 'events_page_url',
+            'desc' => __("Enter the page of for all events. Example (/events).", 'framework'),
             'type' => 'text',
             'std' => ''
         ),
-        ));
+    ));
+
 
 /* * **Home Page Meta Box5 *** */
 $meta_boxes[] = array(
@@ -1495,7 +1579,7 @@ $meta_boxes[] = array(
     'fields' => array(
         array(
             'name' => __('Switch for recent articles.', 'framework'),
-            'id' => $prefix . 'imic_recent_articles',
+            'id' => $prefix . 'imic_recent_articles_area',
             'desc' => __("Select enable or disable to show/hide articles.", 'framework'),
             'type' => 'select',
             'options' => array(
@@ -1526,9 +1610,10 @@ $meta_boxes[] = array(
             'type' => 'text',
             'std' => ''
         ),
+        /*
         array(
             'name' => __('Show read more button', 'framework'),
-            'id' => $prefix . 'recent_posts_rmbutton',
+            'id' => $prefix . 'recent_articles_rmbutton',
             'desc' => __("Show read more button for each recent articles?", 'framework'),
             'type' => 'select',
             'options' => array(
@@ -1543,7 +1628,7 @@ $meta_boxes[] = array(
             'desc' => __("Enter button text for read more button", 'framework'),
             'type' => 'text',
             'std' => ''
-        ),
+        ), */
     ));
 /* * **Home Page Meta Box3 *** */
 $meta_boxes[] = array(
