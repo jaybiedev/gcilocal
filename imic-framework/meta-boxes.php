@@ -522,7 +522,7 @@ $meta_boxes[] = array(
             'type' => 'text',
         ),
 		array(
-            'name' => __('Choose Header Type', 'framework'),
+            'name' => __('Choose Banner Type', 'framework'),
             'id' => $prefix . 'pages_Choose_slider_display',
             'desc' => __("Select header type", 'framework'),
             'type' => 'select',

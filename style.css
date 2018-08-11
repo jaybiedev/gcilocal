@@ -4020,7 +4020,7 @@ p.demo_store{
 .fc-day-grid-event > .fc-content{white-space:normal!important;}
 #content .page-content,
 #content .page-content p{
-	font-size: 14pt;
+	/*font-size: 14pt; */
 	line-height: 20pt;
 }
 .page-content > ul {
@@ -4610,8 +4610,8 @@ body .main .featuredbox, body .main .onchurch {
 	background:none;
 }
 .home .page-content {
-	padding-top: 50px;
-	padding-bottom: 50px;
+	padding: 50px;
+	border-top: 1px dotted #dadada;
 }
 .home .container p {
 	font-size: 1.25em;

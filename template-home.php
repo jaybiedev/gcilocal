@@ -360,23 +360,14 @@ if($imic_upcoming_events_area==1)  {
 <div class="main" role="main">
     <div class="full">
         <?php  wp_reset_query();
-        $home_page_content =  trim(the_content());
+        $home_page_content =  trim(get_the_content());
         if (!empty($home_page_content)) {?>
-	        <div class="container">
-    	        <div class="page-content">
-            	    <?php echo $home_page_content;?>
-	            </div>
-    	    </div>
+	        <div class="page-content">
+        	    <?php echo $home_page_content;?>
+            </div>
 	    <?php }?>
-        <div class="silver onchurch nav-center featuredbox">
-            <!-- <header class="listing-header">
-                <h1 class="text-align-center color-text-white">Featured</h1>
-                <hr>
-                <h2 class="text-align-center color-text-white">Articles for reading</h2>
-            </header>
-            -->
-
-            <!-- articles -->
+        <div class="silver onchurch nav-center featuredbox">            
+            <!-- featured article -->
             <?php include_once(get_template_directory() . "/lib/view/home/_featured_article.php");?>
         </div>
     </div>
