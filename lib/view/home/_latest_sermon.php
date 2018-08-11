@@ -27,5 +27,5 @@
         echo $Featurebox->render();
     }
     else {
-        include_once(get_template_directory() . "/lib/view/home/_latest_spol.php");
+        include_once(__DIR__ . "/_latest_spol.php");
     }

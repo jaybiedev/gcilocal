@@ -380,8 +380,8 @@ if($imic_upcoming_events_area==1)  {
             <?php include_once(get_template_directory() . "/lib/view/home/_featured_article.php");?>
         </div>
     </div>
-    <div class="sermon featuredbox navy" style="clear:both;">
-        <?php require_once(get_template_directory() . "/lib/view/home/_latest_sermon.php");?>
+    <div class="sermon featuredbox navy" style="clear:both;"> 
+        <?php require_once(get_template_directory() . "/lib/view/home/_featured_media.php"); // falls back to latest sermon, and latest spol?>
     </div>
     
     <div class="container-fluid featuredbox onchurch">
