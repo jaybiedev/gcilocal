@@ -4,21 +4,23 @@ $featured_block = get_post_meta($home_page,'imic_home_featured_blocks1',true);
 $featured_block2 = get_post_meta($home_page,'imic_home_featured_blocks2',true);
 $featured_block3 = get_post_meta($home_page,'imic_home_featured_blocks3',true);
 $all_blocks = array($featured_block,$featured_block2,$featured_block3);
+
 if($featured_block!='') {
-update_post_meta($home_page,'imic_home_row_featured_blocks',$all_blocks);
-update_post_meta($home_page,'imic_home_featured_blocks1','');
-update_post_meta($home_page,'imic_home_featured_blocks2','');
-update_post_meta($home_page,'imic_home_featured_blocks3','');
+    update_post_meta($home_page,'imic_home_row_featured_blocks',$all_blocks);
+    update_post_meta($home_page,'imic_home_featured_blocks1','');
+    update_post_meta($home_page,'imic_home_featured_blocks2','');
+    update_post_meta($home_page,'imic_home_featured_blocks3','');
 }
+
 function prefix_register_meta_boxes( $meta_boxes ) {
-$sermons_cats = apply_filters('nativechurch_get_terms', 'sermons-category');
-/* * ** Meta Box Functions **** */
-$prefix = 'imic_';
-global $meta_boxes;
-load_theme_textdomain('framework', IMIC_FILEPATH . '/language');
-$meta_boxes = array();
-  /* Staff Meta Box
-  ================================================== */
+    $sermons_cats = apply_filters('nativechurch_get_terms', 'sermons-category');
+    /* * ** Meta Box Functions **** */
+    $prefix = 'imic_';
+    global $meta_boxes;
+    load_theme_textdomain('framework', IMIC_FILEPATH . '/language');
+    $meta_boxes = array();
+      /* Staff Meta Box
+      ================================================== */
 $meta_boxes[] = array(
     'id' => 'staff_meta_box',
     'title' => __('Staff Member Meta', 'framework'),
@@ -1179,12 +1181,29 @@ $meta_boxes[] = array(
     
     'fields' => array(
         array(
+            'name' => __('Online Giving', 'framework'),
+            'id' => $prefix . 'online_giving_method',
+            'desc' => __("Select method for online giving.", 'framework'),
+            'type' => 'select',
+            'options' => array(
+                'gci' => __('via GCI Home Office', 'framework'),
+                'other' => __('Other', 'framework'),
+            ),
+            'std' => '1',
+        ),
+        
+        array(
             'name' => __('Online Giving GCI Church ID', 'framework'),
             'id' => $prefix . 'online_giving_gci_church_id',
             'desc' => __("GCI Local Church ID", 'framework'),
             'type' => 'text',
         ),
-        
+        array(
+            'name' => __('URL for online giving', 'framework'),
+            'id' => $prefix . 'online_giving_other_url',
+            'desc' => __("URL for online giving", 'framework'),
+            'type' => 'text',
+        ),
         array(
             'name' => __('Show featured article', 'framework'),
             'id' => $prefix . 'featured_article',

@@ -32,12 +32,20 @@ Savvy = {
                 direction: 'right'
             }, 250, function() {
                 $('input', this).focus();
+                
+                $('input', this).focusout(function() {
+                	$("#bs-navbar-collapse .search-top .search-box").hide();
+                });
             });
             */
+            
             $("#bs-navbar-collapse .search-top .search-box").toggle('slide', function() {
                 $('input', this).focus();
+                $('input', this).focusout(function() {
+                	$("#bs-navbar-collapse .search-top .search-box").hide();
+                });
             });
-
+            
         })
     },
 

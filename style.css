@@ -1597,8 +1597,8 @@ ul.nav.navbar-nav .dropdown-menu li a i {
 #bs-navbar-collapse .search-box {
 	height:34px;
 	position:absolute;
-	top:17px;
-	right: 37px;
+	top:12px;
+	right: 15px;
 	width: 40%;
 	z-index:2;
 	overflow:hidden;
@@ -1606,7 +1606,7 @@ ul.nav.navbar-nav .dropdown-menu li a i {
 	display:none;
 }
 #bs-navbar-collapse .search-box input {
-	text-align:right;
+	/*text-align:right; */
 	padding: 4px 15px;
 	border: 1px solid #ccc;
 	width: 100%;

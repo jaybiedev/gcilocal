@@ -65,7 +65,13 @@ if($offset=='') {
 date_default_timezone_set($offset);
 
 $front_page_id = get_option( 'page_on_front' );
-$online_giving_gci_church_id  = get_post_meta($front_page_id,'imic_online_giving_gci_church_id',true);
+$online_giving_method  = get_post_meta($front_page_id,'imic_online_giving_method', true);
+if ($online_giving_method == 'gci') {
+    $online_giving_url  = 'https://www.gci.org/online-giving/?churchnumber='. get_post_meta($front_page_id,'imic_online_giving_gci_church_id', true);
+}
+else {
+    $online_giving_url  = get_post_meta($front_page_id,'imic_online_giving_other_url', true);    
+}
 
 ?>
 <!-- CSS
@@ -104,7 +110,7 @@ $online_giving_gci_church_id  = get_post_meta($front_page_id,'imic_online_giving
                         <div class="collapse navbar-collapse pull-right" id="bs-navbar-collapse">
                             <!-- has online-giving page-->
                             <div class="pull-right online-giving-top">
-                                <a class="btn btn-primary" href="https://www.gci.org/online-giving/?churchnumber=<?php echo $online_giving_gci_church_id;?>" target="_online_giving">ONLINE GIVING</a>
+                                <a class="btn btn-primary" href="<?php echo $online_giving_url;?>" target="_online_giving">ONLINE GIVING</a>
                             </div>
                             <div class="pull-right font-color-theme search-top" title="Search...">
                                 <i class="fa fa-search font-color-white"></i>

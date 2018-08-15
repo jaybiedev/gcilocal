@@ -515,4 +515,26 @@ jQuery(document).ready(function() {
 	{
 		checkAllDay(jQuery(this));
 	})  
+	
+	$("select#imic_online_giving_method").on('change', function() {
+		SavvyAdmin.initOnlineGivingOption();
+	});
+	SavvyAdmin.initOnlineGivingOption();
 });
+
+var SavvyAdmin = {
+
+	initOnlineGivingOption : function() {
+    	var  method = $("select#imic_online_giving_method").val();
+    	var gci = $("input#imic_online_giving_gci_church_id").parent().parent();
+    	var other = $("input#imic_online_giving_other_url").parent().parent();
+    	gci.hide();
+    	other.hide();
+    	if (method == 'gci') {
+			gci.show();
+    	}
+    	else {
+    		other.show();
+    	}
+    }
+} 
