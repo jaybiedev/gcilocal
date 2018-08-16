@@ -123,7 +123,7 @@ else {
                             <?php
                             wp_nav_menu( array(
                                     'theme_location' => 'primary-menu',
-                                    'menu_class'     => 'nav navbar-nav pull-right hidden',
+                                    'menu_class'     => 'menu-header-menu nav navbar-nav pull-right hidden',
                                     'container'		 => 'container-fluid'
                                 )
                             );

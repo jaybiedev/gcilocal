@@ -69,7 +69,7 @@ Savvy = {
     },
 
     menuFix : function() {
-        var nav = $('#menu-header-menu.nav.navbar-nav');
+        var nav = $('.menu-header-menu.nav.navbar-nav');
         var subs = $("ul.sub-menu", nav);
         nav.removeClass('hidden');
         $(subs).each(function(a, el) {
