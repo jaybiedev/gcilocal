@@ -155,9 +155,10 @@ else {
  			else {
            		$id = get_the_ID();
             }
-            
+
             if ((!is_front_page()) || $show_on_front == 'posts'||(!is_page_template('template-home.php')&&!is_page_template('template-h-second.php')&&!is_page_template('template-h-third.php')&&!is_page_template('template-home-pb.php'))) 
             {
+                
                 if (is_404() || is_search()||$flag==0) {
                     $custom = array();
                 } else {
@@ -206,6 +207,7 @@ else {
                 $css .= ".body ol.breadcrumb  {padding-top: " .$breadpad . "px;}\n";
                 if (!empty($bgcolor))
                     $css .= ".nav-backed-header.parallax: background-color  {$bgcolor};\n";
+                
                 if($header_options==0||$header_options=='') {
                     $css .= ".nav-backed-header.parallax  {background-image:url(" . $src[0] . ");}";
                 }

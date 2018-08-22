@@ -25,7 +25,8 @@ $show_recent_articles_area = get_post_meta($front_page_id,'imic_imic_recent_arti
 $show_galleries_area = get_post_meta($front_page_id,'imic_imic_galleries',true);
 $cards_all = PostHelper::getHomePageCards();
 
-$front_page_splash = get_post_field("imic_pages_Choose_slider_display", true);
+//$front_page_splash = get_post_field("imic_pages_Choose_slider_display", true);
+$front_page_splash = get_post_meta($front_page_id,'imic_pages_Choose_slider_display',true);
 
 if ($front_page_splash == '1') {
     include(locate_template('pages_slider.php'));
