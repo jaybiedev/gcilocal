@@ -31,7 +31,7 @@ $front_page_splash = get_post_meta($front_page_id,'imic_pages_Choose_slider_disp
 if ($front_page_splash == '1') {
     include(locate_template('pages_slider.php'));
 }
-elseif ($front_page_splash == '') {
+elseif (empty($front_page_splash) ) {
     include(locate_template('pages_banner.php'));
 }
 else {
