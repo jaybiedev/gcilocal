@@ -1782,7 +1782,7 @@ add_action('wp_ajax_nopriv_imic_event_grid', 'imic_event_grid');
 add_action('wp_ajax_imic_event_grid', 'imic_event_grid');
 //Event Global Function
 if (!function_exists('imic_recur_events')) {
-function imic_recur_events($status,$featured="nos",$term='',$month='') 
+function imic_recur_events($status,$featured="nos",$term='',$month='', $show_multiples=true) 
 {
   ##################### getset options and defaut value  ###############
   $featured                = ($featured=="yes")?"no":"nos";
@@ -1808,12 +1808,12 @@ function imic_recur_events($status,$featured="nos",$term='',$month='')
 						  'relation' => 'AND',
 						   array(
 								 'key' => 'imic_event_frequency_end',
-								 'value' => $curr_month,
+						       'value' => date('Y-m-t 23:59', strtotime($stop_date)),
 								 'compare' => '>'
 								 ),
 						   array(
 								 'key' => 'imic_event_start_dt',
-								 'value' => date('Y-m-t 23:59', strtotime($stop_date)),
+						       'value' => $curr_month,
 								 'compare' => '<'
 								 ),
 						);
@@ -1878,8 +1878,14 @@ if (have_posts()):
 		{ 
 		   $frequency_count = 0;
 		}
+		
+		$event_id = get_the_ID();
+
         while ($fr_repeat <= $frequency_count) 
 		{
+		    if ($show_multiples == false && $fr_repeat > 0)
+		        break;
+		    
             $event_start_dt = $eventDate = get_post_meta(get_the_ID(), 'imic_event_start_dt', true);
 			$event_start_tm = $MetaStartTime  = get_post_meta(get_the_ID(),'imic_event_start_tm',true);
 			$eventEndDate   = get_post_meta(get_the_ID(),'imic_event_end_dt',true);
@@ -1891,6 +1897,7 @@ if (have_posts()):
 			$diff_end = date('Y-m-d', $eventEndDate);
 			$days_extra = imic_dateDiff($diff_start, $diff_end);
 			$dt_tm = strtotime($event_start_dt.' '.$event_start_tm);
+			
 			if($days_extra>0) 
 			{
 				$start_day = 0;
@@ -1937,7 +1944,11 @@ if (have_posts()):
 				 {
 					$eventTime = date('G:i',$eventDate);
 					$eventDate = strtotime( date('Y-m-01',$eventDate) );
-					if($fr_repeat==0) { $fr_repeat = $fr_repeat+1; }
+					
+					if($fr_repeat==0) { 
+					    $fr_repeat = $fr_repeat+1; 
+					}
+					
 					$eventDate = strtotime("+".$fr_repeat." month", $eventDate);
 					$next_month = date('F',$eventDate);
 					$next_event_year = date('Y',$eventDate);
@@ -1989,8 +2000,12 @@ if (have_posts()):
 					} 	
 				}
 		  } 
-		  if($days_extra<1) { $fr_repeat++; } 
-		  else { $fr_repeat = 1000000; }
+		  if($days_extra<1) { 
+		      $fr_repeat++; 
+		  } 
+		  else { 
+		      $fr_repeat = 1000000; 
+		  }
         } 
     endwhile; 
 endif;

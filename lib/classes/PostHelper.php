@@ -93,7 +93,7 @@ class PostHelper {
             }
             $imic_events_to_show_on = get_post_meta($home_id,'imic_events_to_show_on',true);
             $imic_events_to_show_on=!empty($imic_events_to_show_on)?$imic_events_to_show_on:4;
-            $event_add_ids = imic_recur_events('future','nos', $recent_events_category,'');
+            $event_add_ids = imic_recur_events('future','nos', $recent_events_category,'', false);
             
             $google_events = getGoogleEvent();
             if(!empty($google_events))

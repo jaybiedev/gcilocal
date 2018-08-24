@@ -1530,7 +1530,7 @@ $meta_boxes[] = array(
 /** end of media **/
 $meta_boxes[] = array(
     'id' => 'template-home7b',
-    'title' => __('Recent Events Area', 'framework'),
+    'title' => __('Featured Events Area', 'framework'),
     'pages' => array('page'),
     'show' => array(
         // With all conditions below, use this logical operator to combine them. Default is 'OR'. Case insensitive. Optional.
@@ -1541,7 +1541,7 @@ $meta_boxes[] = array(
     'show_names' => true,
     'fields' => array(
         array(
-            'name' => __('Show recent events', 'framework'),
+            'name' => __('Show upcoming featured events', 'framework'),
             'id' => $prefix . 'imic_recent_events_area',
             'desc' => __("Select enable or disable to show/hide events list.", 'framework'),
             'type' => 'select',
@@ -1558,7 +1558,7 @@ $meta_boxes[] = array(
             'type'    => 'taxonomy_advanced',
             'options' => array(
                 // Taxonomy name
-                'taxonomy' => 'category',
+                'taxonomy' => 'event-category',
                 'type' => 'select',
                 // Additional arguments for get_terms() function. Optional
                 'args' => array('orderby' => 'count', 'hide_empty' => true)
