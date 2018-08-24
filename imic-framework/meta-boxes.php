@@ -1188,6 +1188,7 @@ $meta_boxes[] = array(
             'options' => array(
                 'gci' => __('via GCI Home Office', 'framework'),
                 'other' => __('Other', 'framework'),
+                'disable' => __('Disable', 'framework'),
             ),
             'std' => '1',
         ),
