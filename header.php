@@ -3,7 +3,14 @@
 <html <?php language_attributes(); ?> class="no-js">
 <head>
 <?php
-	$options = get_option('imic_options');
+    $front_page_id = get_option( 'page_on_front' );
+    
+    $additional_head_code = get_post_meta($front_page_id,'imic_additional_head_code', true);
+    if (!empty($additional_head_code)) {
+        echo $additional_head_code;
+    }
+	
+    $options = get_option('imic_options');
    	/** Theme layout design * */
   	$bodyClass = ($options['site_layout'] == 'boxed') ? ' boxed' : '';
    	$style='';
@@ -64,7 +71,6 @@ if($offset=='') {
 }
 date_default_timezone_set($offset);
 
-$front_page_id = get_option( 'page_on_front' );
 $online_giving_method  = get_post_meta($front_page_id,'imic_online_giving_method', true);
 if ($online_giving_method == 'gci') {
     $online_giving_url  = 'https://www.gci.org/online-giving/?churchnumber='. get_post_meta($front_page_id,'imic_online_giving_gci_church_id', true);

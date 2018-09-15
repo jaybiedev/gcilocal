@@ -17,7 +17,7 @@ class BackgroundImage extends AbstractComponent {
         $html =<<<HTML
             <span class="txt">
                 <span class="desc">
-                    <strong>{$largeTopTxt}</strong>{$largeTopTxt}
+                    <strong>{$largeTopTxt}</strong>
                     <span class="sub">{$largeBtmTxt}</span>
                     <span class="sub">{$smallTxt}</span>
                 </span>

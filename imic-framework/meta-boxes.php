@@ -1241,6 +1241,12 @@ $meta_boxes[] = array(
             'type' => 'text',
             'std' => ''
         ),
+        array(
+            'name' => __('Additional Head Code', 'framework'),
+            'id' => $prefix . 'additional_head_code',
+            'desc' => __("Additional head code such as google analytics javascript", 'framework'),
+            'type' => 'textarea',
+        ),
     ));
 
 
