@@ -90,7 +90,6 @@ elseif ($online_giving_method == 'other') {
 ?>
 <?php //  WORDPRESS HEAD HOOK
  wp_head(); ?>
- <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <!--// CLOSE HEAD //-->
 <body <?php body_class($bodyClass); echo $style;  ?>>
