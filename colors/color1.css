@@ -124,3 +124,21 @@ header hr {
 	background-color: #d3ab39;
 	color: #fff;
 }
+
+@media only screen and (max-width: 767px) {
+	#bs-navbar-collapse {
+  		background-color : #444;
+		width: 100%;
+		opacity: 0.85;
+		overflow: auto;
+		height:auto!important;
+		min-height: 640px;
+	}
+	ul.nav.navbar-nav {
+		clear:both;
+		float:left !important;
+	}
+	ul ul.sub-menu.dropdown-menu {
+		position: relative;
+	}
+}
