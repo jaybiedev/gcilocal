@@ -142,3 +142,9 @@ header hr {
 		position: relative;
 	}
 }
+
+/* calendar override */
+.fc-event-container a {
+	color: #161b2d;
+	padding: 5px;
+}

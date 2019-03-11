@@ -9,24 +9,25 @@ include_once(get_template_directory() . "/lib/classes/Sermon.php");
 
 class PostHelper {
 
-    public static function getHomePageCards($section=null) {
+    public static function getHomePageCards($section=array(), $page_id=null) {
 
         static $card_all = array();
         static $card_news = array();
         static $card_events = array();
         static $card_media = array();
         static $card_articles = array();
-        static $card_home_id = null;
+        static $card_gallery = array();
         
-        if (empty($card_home_id))
-            $card_home_id = get_option( 'page_on_front' );
+        if (empty($page_id))
+            $page_id = get_option( 'page_on_front' );
         
         // news
         if (empty($card_news)) {
-            $post_category = get_post_meta($home_id,'imic_recent_post_taxonomy',true);
-            $posts_per_page = get_post_meta($home_id, 'imic_posts_to_show_on', true);
+            $post_category = get_post_meta($page_id,'imic_recent_post_taxonomy',true);
+            $posts_per_page = get_post_meta($page_id, 'imic_posts_to_show_on', true);
             $posts_per_page = !empty($posts_per_page) ? $posts_per_page : 2;
-            $post_category = !empty($post_category) ? $post_category : 0;            
+            $post_category = !empty($post_category) ? $post_category : 0;   
+            
             $news = get_posts(array(
                     'category'=>$post_category,
                     'numberposts'=>$posts_per_page,
@@ -51,7 +52,7 @@ class PostHelper {
             $Sermon = new Sermon();
             $sermons = $Sermon->getAll();
             
-            $post_per_page = get_post_meta($home_id, 'imic_media_to_show_on', true);
+            $post_per_page = get_post_meta($page_id, 'imic_media_to_show_on', true);
             if (empty($post_per_page))
                 $post_per_page = 9;
                 
@@ -82,16 +83,16 @@ class PostHelper {
             
         // events
         if (empty($card_events)) {
-            $events_per_page = get_post_meta($home_id, 'imic_events_to_show_on', true);
+            $events_per_page = get_post_meta($page_id, 'imic_events_to_show_on', true);
             $events_per_page = !empty($events_per_page) ? $events_per_page : 4;
             
-            $recent_events_category = get_post_meta($home_id,'imic_recent_events_taxonomy',true);
-            
+            $recent_events_category = get_post_meta($page_id,'imic_recent_events_taxonomy',true);
             if(!empty($recent_events_category)){
                 $events_categories= get_term_by('id',$recent_events_category,'event-category');
                 $recent_events_category= $events_categories->slug;
             }
-            $imic_events_to_show_on = get_post_meta($home_id,'imic_events_to_show_on',true);
+            
+            $imic_events_to_show_on = get_post_meta($page_id,'imic_events_to_show_on',true);
             $imic_events_to_show_on=!empty($imic_events_to_show_on)?$imic_events_to_show_on:4;
             $event_add_ids = imic_recur_events('future','nos', $recent_events_category,'', false);
             
@@ -127,8 +128,8 @@ class PostHelper {
             
         // articles
         if (empty($card_articles)) {
-            $post_category = get_post_meta($home_id,'imic_recent_articles_taxonomy',true);
-            $posts_per_page = get_post_meta($home_id, 'imic_post_artices_to_show_on', true);
+            $post_category = get_post_meta($page_id,'imic_recent_articles_taxonomy',true);
+            $posts_per_page = get_post_meta($page_id, 'imic_post_artices_to_show_on', true);
             $posts_per_page = !empty($posts_per_page) ? $posts_per_page : 2;
             $post_category = !empty($post_category) ? $post_category : 0;
             
@@ -146,7 +147,64 @@ class PostHelper {
             }
         }
         
+        // gallery
+        if (empty($card_gallery)) {
+            $gallery_category = get_post_meta($page_id,'imic_home_gallery_taxonomy', true);
+            
+            if(!empty($gallery_category)){
+                $gallery_categories= get_term_by('id',$gallery_category,'gallery-category');
+                $gallery_category= $gallery_categories->slug;
+            }
+            
+            $posts_per_page = get_post_meta($page_id,'imic_galleries_to_show_on',true);
+            $posts_per_page=!empty($posts_per_page)?$posts_per_page:9;
+            
+            $posts = get_posts(array(
+                'post_type' => 'gallery',
+                'gallery-category' => $gallery_category,
+                'posts_per_page' => $posts_per_page,
+            ));
+            
+            foreach ($posts as $item) {
+                $Featurebox = new Featurebox();
+                // inject Post
+                $Featurebox->post_id = $item->ID;
+                $Featurebox->Post = $item;
+                $card_gallery[] = $Featurebox;
+                unset($Featurebox);
+            }
+        }
+
         $cards = array();
+        $card_all = array();
+        foreach ((array)$section as $sec) {
+            if ($sec == 'all') {
+                $card_all = array_merge($card_news, $card_events, $card_media, $card_articles, $card_gallery);
+                break;
+            }
+            elseif ($sec == 'news') {
+                $card_all = array_merge($card_all, $card_news);
+            }
+            elseif ($sec == 'media') {
+                $card_all = array_merge($card_all, $card_media);
+            }
+            elseif ($sec == 'events') {
+                $card_all = array_merge($card_all, $card_events);
+            }
+            elseif ($sec == 'articles') {
+                $card_all = array_merge($card_all, $card_articles);
+            }
+            elseif ($sec == 'gallery') {
+                $card_all = array_merge($card_all, $card_gallery);
+            }
+        }
+            
+        usort($card_all, function($previous, $next) {
+            return ($next->Post->post_date > $previous->Post->post_date);
+        });
+        $cards = $card_all;
+        
+        /*
         if (empty($section) || $section == 'all') {
             
             if (empty($card_all)) {
@@ -171,6 +229,7 @@ class PostHelper {
         elseif ($section == 'articles') {
             $cards = $card_articles;
         }
+        */
                 
         return $cards;
     }

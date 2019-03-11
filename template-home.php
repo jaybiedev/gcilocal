@@ -21,9 +21,23 @@ imic_sidebar_position_module();
 $show_recent_news_area = get_post_meta($front_page_id,'imic_imic_recent_posts',true);
 $show_recent_media_area = get_post_meta($front_page_id,'imic_imic_recent_media_area',true);
 $show_recent_events_area = get_post_meta($front_page_id,'imic_imic_recent_events_area',true);
+$show_upcoming_events =  get_post_meta($front_page_id,'imic_imic_upcoming_events',true); 
 $show_recent_articles_area = get_post_meta($front_page_id,'imic_imic_recent_articles_area',true);
 $show_galleries_area = get_post_meta($front_page_id,'imic_imic_galleries',true);
-$cards_all = PostHelper::getHomePageCards();
+
+$cards_all_sections = array();
+if ($show_recent_news_area == "1")
+    $cards_all_sections[] = 'news';
+if ($show_recent_media_area == "1")
+    $cards_all_sections[] = 'media';
+if ($show_recent_events_area == "1")
+    $cards_all_sections[] = 'events';
+if ($show_recent_articles_area == "1")
+    $cards_all_sections[] = 'articles';
+if ($show_galleries_area == "1")
+    $cards_all_sections[] = 'gallery';
+//
+$cards_all = PostHelper::getHomePageCards($cards_all_sections, $front_page_id);
 
 //$front_page_splash = get_post_field("imic_pages_Choose_slider_display", true);
 $front_page_splash = get_post_meta($front_page_id,'imic_pages_Choose_slider_display',true);
@@ -376,6 +390,11 @@ if($imic_upcoming_events_area==1)  {
         <?php require_once(get_template_directory() . "/lib/view/home/_featured_media.php"); // falls back to latest sermon, and latest spol?>
     </div>
     
+    <?php 
+    if ($show_recent_news_area == "1" || $show_recent_media_area == "1"
+        || $show_recent_events_area  == "1"|| $show_recent_articles_area  == "1"
+        || $show_galleries_area == "1") {
+    ?>
     <div class="container-fluid featuredbox onchurch">
         <header class="listing-header">
             <h1 class="text-align-center">News & Events</h1>
@@ -443,6 +462,7 @@ if($imic_upcoming_events_area==1)  {
             </div>
         </div>
     </div>
+    <?php }?>
 </div>
 <?php 
 get_footer();
