@@ -1187,6 +1187,7 @@ $meta_boxes[] = array(
             'type' => 'select',
             'options' => array(
                 'gci' => __('via GCI Home Office', 'framework'),
+                'modal' => __('GivingFuel modal overlay', 'framework'),
                 'other' => __('Other', 'framework'),
                 'disable' => __('Disable', 'framework'),
             ),
