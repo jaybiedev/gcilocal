@@ -533,7 +533,7 @@ var SavvyAdmin = {
     	if (method == 'gci') {
 			gci.show();
     	}
-    	else if (method == 'other') {
+    	else if ((method == 'other')||(method == 'modal')) {
     		other.show();
     	}
     }
