@@ -141,4 +141,7 @@ header hr {
 	ul ul.sub-menu.dropdown-menu {
 		position: relative;
 	}
+
+.staff-item .medex-box img {
+	border-radius:100%; 
 }
