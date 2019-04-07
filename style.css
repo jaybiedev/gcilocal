@@ -1,15 +1,17 @@
 /*
     Theme Name: GCI Local
-	Version: 1.0.0
+	Version: 1.0.2.1
+	GitHub Theme URI: jaybiedev/gcilocal
 */
 
-
+@import url('https://cloud.gci.org/fonts/gci-font.css');
+@import url('https://fonts.googleapis.com/css?family=Lato|Volkhov');
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	font: inherit;
-	font-family: Lato, Arial, Helvetica, sans-serif;
+	font-family: GCI, Montserrat, Arial, Helvetica, sans-serif;
 	font-size: 100%;
 }
 /* HTML5 display-role reset for older browsers */
@@ -167,7 +169,6 @@ h6{
 	color:#333333;
 	font-weight:400;
 	line-height:1.5em;
-	font-family: 'Lato', sans-serif;
 }
 h1{
 	font-size:36px;
@@ -183,7 +184,7 @@ h4{
 	text-transform:uppercase;
 	font-weight:700;
 	letter-spacing:2px;
-	font-family: 'Lato Condensed', sans-serif;
+	font-family: GCI Semibold, Montserrat Semibold, Arial, Helvetica, sans-serif;
 }
 h5{
 	font-size:16px;
@@ -366,7 +367,6 @@ address.ico span{
 	-webkit-border-radius:2px;
 	-moz-border-radius:2px;
 	border-radius:2px;
-	font-family: 'Lato Condensed', sans-serif;
 }
 label {
   display: inline-block;
@@ -498,7 +498,6 @@ label {
 .event-ticket .event-location{
     border-right:2px solid #333;
     border-left:2px solid #333;
-    font-family: 'Lato', sans-serif;
 }
 .registerant-info{
     display:block;
@@ -635,7 +634,6 @@ label {
 .btn{
 	border-width:0;
   	text-decoration:none;
-	font-family: 'Lato Condensed', sans-serif !important;
 	-webkit-transition:all 0.3s ease 0.2s;
 	-moz-transition:all 0.3s ease 0.2s;
 	-ms-transition:all 0.3s ease 0.2s;
@@ -905,7 +903,6 @@ body{
 	font-weight:300;
 	line-height:25px; 
 	background-attachment:fixed;
-	font-family: Lato, Arial, Helvetica, sans-serif;
 }
 body.boxed .body{
 	position:relative;
@@ -998,7 +995,6 @@ body.siteorigin-panels.boxed .body{
 }
 .top-navigation{
 	float:right;
-	font-family: 'Lato Condensed', sans-serif;
 	padding:30px 0 0 0;
 }
 .header-style4 .top-navigation{
@@ -1197,7 +1193,6 @@ body.siteorigin-panels.boxed .body{
 	text-transform:none;
 	font-weight:400;
 	letter-spacing:0;
-	font-family: 'Lato', sans-serif;
 }
 .toprow .top-navigation > li:after{
 	content:"";
@@ -1248,7 +1243,6 @@ body.siteorigin-panels.boxed .body{
 	border-radius:0 0 4px 4px;
 	z-index:220;
 	text-align:center;
-	font-family: 'Lato Condensed', sans-serif;
 	position:absolute;
 	top:0;
 }
@@ -1885,7 +1879,6 @@ body.home p {
 	margin-top:4px;
 }
 .notice-bar-title strong{
-	font-family: 'Lato Condensed', sans-serif;
 	font-size:16px;
 	color:#333;
 	text-transform:uppercase;
@@ -1903,7 +1896,6 @@ body.home p {
 }
 .timer-col #days, .timer-col #hours, .timer-col #minutes, .timer-col #seconds{
 	display:inline-block;
-	font-family: 'Lato Condensed', sans-serif;
 	font-size:18px;
 	padding:5px 10px;
 }
@@ -2044,7 +2036,6 @@ body.home p {
 }
 .event-date{
 	width:100%;
-	font-family: 'Lato Condensed', sans-serif;
 	text-transform:uppercase;
 	color:#333333;
 	line-height:20px;
@@ -2052,7 +2043,6 @@ body.home p {
 	padding:5px 0 0 0;
 }
 .event-date .date{
-	font-family: 'Lato Condensed', sans-serif;
 	font-size:34px;
 	font-style:normal;
 	font-weight:700;
@@ -2095,7 +2085,6 @@ body.home p {
     vertical-align:middle;
 }
 .event-item .event-detail h4{
-	font-family: 'Lato', sans-serif;
 	text-transform:none;
 	font-weight:400;
 	letter-spacing:0;
@@ -2176,7 +2165,6 @@ body.home p {
 .featured-sermon .date{
 	text-transform:uppercase;
 	font-size:12px;
-	font-family: 'Lato Condensed', sans-serif;
 	font-weight:700;
 	margin-bottom:5px;
 	display:block;
@@ -2215,7 +2203,6 @@ body.home p {
 	background-color:rgb(62,62,62)!important;;
 	padding:20px;
 	font-size:12px;
-	font-family: 'Lato', sans-serif;
 	color:rgb(118, 118,118)!important;
 }
 .site-footer-bottom p{
@@ -2254,7 +2241,6 @@ body.home p {
 	color:#ffffff;
 	margin-bottom:0;
 	line-height:1em;
-	font-family: 'Lato Condensed', sans-serif;
 }
 header hr {
 	width: 10%;
@@ -2502,7 +2488,6 @@ ol.breadcrumb > .active{
 }
 .timeline > li > .timeline-badge span{
 	font-size:14px;
-	font-family: 'Lato Condensed', sans-serif;
 	display:block;
 	line-height:16px;
 }
@@ -2652,7 +2637,6 @@ ol.breadcrumb > .active{
 	text-align:center;
 	color:#fff;
 	text-transform:uppercase;
-	font-family: 'Lato Condensed', sans-serif;
 	font-weight:700;
 	float:right;
 }
@@ -3670,7 +3654,6 @@ p.demo_store{
 	padding-left:0;
 }
 .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit, .woocommerce #content input.button, .woocommerce-page a.button, .woocommerce-page button.button, .woocommerce-page input.button, .woocommerce-page #respond input#submit, .woocommerce-page #content input.button, #sidebar-col .widget input[type="button"], #sidebar-col .widget input[type="reset"], #sidebar-col .widget input[type="submit"], .bbp-submit-wrapper button {
-    	font-family: 'Lato Condensed', sans-serif;
     	font-weight: bold;
     	border-radius: 3px;
     	color: #333;
@@ -3893,7 +3876,6 @@ p.demo_store{
 .wpcf7-form .wpcf7-submit{
 	color: #FFF;
 	border-width: 0px;
-	font-family: 'Lato Condensed',sans-serif;
 	-webkit-transition: all 0.3s ease 0.1s;
 	transition: all 0.3s ease 0.1s;
 	margin-bottom: 0px;
@@ -4467,7 +4449,6 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 .featuredbox header h1 {
-	font-family:TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
 	font-size: 30px;
 	font-weight: 400;
 	text-transform: uppercase;

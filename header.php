@@ -74,9 +74,23 @@ date_default_timezone_set($offset);
 $online_giving_method  = get_post_meta($front_page_id,'imic_online_giving_method', true);
 if ($online_giving_method == 'gci') {
     $online_giving_url  = 'https://www.gci.org/online-giving/?churchnumber='. get_post_meta($front_page_id,'imic_online_giving_gci_church_id', true);
+	$online_giving_button = '<a class="btn btn-primary" href="'.$online_giving_url.'" target="_online_giving">ONLINE GIVING</a>';
 }
 elseif ($online_giving_method == 'other') {
     $online_giving_url  = get_post_meta($front_page_id,'imic_online_giving_other_url', true);    
+	$online_giving_button = '<a class="btn btn-primary" href="'.$online_giving_url.'" target="_online_giving">ONLINE GIVING</a>';
+}
+elseif ($online_giving_method == 'modal') {
+    $online_giving_url  = get_post_meta($front_page_id,'imic_online_giving_other_url', true);    
+	if ( !class_exists('wx_form_management') ) {
+		$online_giving_button = '<a class="btn btn-primary" href="'.$online_giving_url.'" target="_online_giving">ONLINE GIVING</a>';
+	} else {
+		$online_giving_shortcode='[wxform url="'.$online_giving_url.'" type="modal" bg="#d3ab39" fg="#FFFFFF"]ONLINE GIVING[/wxform]';
+		$online_giving_button = do_shortcode($online_giving_shortcode);
+		//echo "\n<!-- ================================================================================\n".$online_giving_shortcode."\n".$online_giving_button."\n================================================================================\n -->";
+		$online_giving_button = str_replace('wx-button','wx-button btn btn-primary',$online_giving_button);
+		//echo "\n<!-- ================================================================================\n".$online_giving_shortcode."\n".$online_giving_button."\n================================================================================\n -->";
+	}
 }
 
 ?>
@@ -114,10 +128,10 @@ elseif ($online_giving_method == 'other') {
                             </a>
                         </div>
                         <div class="collapse navbar-collapse pull-right" id="bs-navbar-collapse">
-                            <!-- has online-giving page-->
                             <?php if ($online_giving_method != 'disable') {?>
+                            <!-- has online-giving page-->
                             <div class="pull-right online-giving-top">
-                                <a class="btn btn-primary" href="<?php echo $online_giving_url;?>" target="_online_giving">ONLINE GIVING</a>
+								<?php echo $online_giving_button; ?>
                             </div>
                             <?php }?>
                             <div class="pull-right font-color-theme search-top" title="Search...">

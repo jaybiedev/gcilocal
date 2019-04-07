@@ -145,3 +145,9 @@ header hr {
 .staff-item .medex-box img {
 	border-radius:100%; 
 }
+
+/* calendar override */
+.fc-event-container a {
+	color: #161b2d;
+	padding: 5px;
+}
