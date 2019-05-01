@@ -1708,6 +1708,9 @@ body.home p {
     background:rgba(0,0,0,.5);
     padding:30px;
 }
+.slider-caption span.desc {
+    display:inline-block;
+}
 .flexslider .flex-control-nav{
 	width:100%;
 	text-align:center;
@@ -1891,7 +1894,7 @@ body.home p {
 }
 .counter .timer-col{
 	display:inline-block;
-	width:24%;
+	width:22%;
 	text-align:center;
 }
 .timer-col #days, .timer-col #hours, .timer-col #minutes, .timer-col #seconds{
