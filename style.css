@@ -1708,6 +1708,9 @@ body.home p {
     background:rgba(0,0,0,.5);
     padding:30px;
 }
+.slider-caption span.desc {
+    display:inline-block;
+}
 .flexslider .flex-control-nav{
 	width:100%;
 	text-align:center;
@@ -1891,7 +1894,7 @@ body.home p {
 }
 .counter .timer-col{
 	display:inline-block;
-	width:24%;
+	width:22%;
 	text-align:center;
 }
 .timer-col #days, .timer-col #hours, .timer-col #minutes, .timer-col #seconds{
@@ -2792,6 +2795,14 @@ h3.gallery_title_meta{
 	padding-top:0;
 	font-size:13px;
 }
+.staff-item .media-box a img {
+        border-radius:100%;
+}
+.staff-item .grid-item-inner {
+	box-shadow:none;
+	border-bottom: 1px solid;
+}
+
 .staff-item .social-icons{
 	margin-bottom:15px;
 }
@@ -2825,6 +2836,9 @@ h3.gallery_title_meta{
 }
 .single-staff-page.post-content .social-icons a:hover{
 	background:#ECEAE4;
+}
+.single-staff-page .featured-image img {
+	border-radius: 100%;
 }
 #gmap{
 	height:350px;
@@ -4000,6 +4014,13 @@ p.demo_store{
 .single-staff .social-icons{width:100%; float:left;} 
 .admin-bar .is-sticky .main-menu-wrapper{top:28px;}
 .fc-day-grid-event > .fc-content{white-space:normal!important;}
+#content .page-content .fc-event-container a {
+	color:inherit;
+}
+#content .page-content .fc-event-container a:hover {
+        color:#fff;
+}
+
 #content .page-content,
 #content .page-content p{
 	/*font-size: 14pt; */
