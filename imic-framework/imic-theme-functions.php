@@ -371,7 +371,7 @@ if (!function_exists('imic_video_youtube')) {
         if (stristr($url,'youtu.be/'))
         { preg_match('/(https:|http:|)(\/\/www\.|\/\/|)(.*?)\/(.{11})/i', $url, $video_id); return '<iframe itemprop="video" src="https://youtube.com/embed/' . $video_id[4] . '?autoplay='.$autopaly.'&rel=0" width="' . $width . '" height="' . $height . '" allowfullscreen="allowfullscreen"></iframe>'; }
     else 
-        { preg_match('/(https:|http:|):(\/\/www\.|\/\/|)(.*?)\/(embed\/|watch\?v=|(.*?)&v=|v\/|e\/|.+\/|watch.*v=|)([a-z_A-Z0-9]{11})/i', $url, $video_id); return '<iframe itemprop="video" src="https://youtube.com/embed/' . $video_id[6] . '?autoplay='.$autopaly.'&rel=0" width="' . $width . '" height="' . $height . '" allowfullscreen="allowfullscreen"></iframe>';
+        { preg_match('/(https:|http:|)(\/\/www\.|\/\/|)(.*?)\/(embed\/|watch\?v=|(.*?)&v=|v\/|e\/|.+\/|watch.*v=|)([a-zA-Z0-9_-]{11})/i', $url, $video_id); return '<iframe itemprop="video" src="https://youtube.com/embed/' . $video_id[6] . '?autoplay='.$autopaly.'&rel=0" width="' . $width . '" height="' . $height . '" allowfullscreen="allowfullscreen"></iframe>';
 		}
     }
 }
