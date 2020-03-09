@@ -16,6 +16,7 @@ $front_page_id = get_option( 'page_on_front' );
 // $front_page_id = get_the_ID();
 $pageOptions = imic_page_design('',8); //page design options
 imic_sidebar_position_module();
+$show_featured_article = get_post_meta($front_page_id,'imic_featured_article',true);
 
 // flags for News and Events
 $show_recent_news_area = get_post_meta($front_page_id,'imic_imic_recent_posts',true);
@@ -381,10 +382,12 @@ if($imic_upcoming_events_area==1)  {
         	    <?php echo $home_page_content;?>
             </div>
 	    <?php }?>
+		<?php if ($show_featured_article=="1") { ?>		
         <div class="silver onchurch nav-center featuredbox">            
             <!-- featured article -->
             <?php include_once(get_template_directory() . "/lib/view/home/_featured_article.php");?>
         </div>
+		<?php } ?>
     </div>
     <div class="sermon featuredbox navy" style="clear:both;"> 
         <?php require_once(get_template_directory() . "/lib/view/home/_featured_media.php"); // falls back to latest sermon, and latest spol?>
