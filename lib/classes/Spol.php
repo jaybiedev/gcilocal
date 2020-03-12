@@ -30,38 +30,36 @@ class Spol {
 	    
 		// nexttime is the filetime the cached json file should be refreshed.
 		if (time() > $this->nexttime) {
-			// $yt_channel_id = "UCgE-RnN9S3U_4zPz8VwvLmA";
-			$yt_channel_id = "UCcjkt-3-U8mogW8QtO9Yr6Q";
-			$url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . $yt_channel_id;
+			//$yt_channel_id = "UCcjkt-3-U8mogW8QtO9Yr6Q";
+			//$url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . $yt_channel_id;
+			// Office Speaking of Life feed
+			$url="https://www.gci.org/feed/?post_type=videos&media-categories=speaking-of-life&attach=video";
 
 			$xml = simplexml_load_file($url);
 
 			$namespaces = $xml->getNamespaces(true); // get namespaces
 			 
 			$items = array();
-			foreach ($xml->entry as $item) {
+			foreach ($xml->channel->item as $item) {
 
 			  $tmp = new stdClass();
 			  $tmp->id = trim((string) $item->children($namespaces['yt'])->videoId);
 			  $tmp->title = trim((string) $item->title);
-			  $tmp->author  = trim((string) $item->author->name);
-			  $tmp->uri  = trim((string) $item->author->uri);
-			  $tmp->updated =  date('Y-m-d', strtotime(trim((string) $item->updated)));
-			  $tmp->link = trim((string) $item->link->attributes()->href);
-			 
-			  // now for the data in the media:group
-			  $MediaGroup = $item->children($namespaces['media'])->group;
-			 
-			  $tmp->url = trim((string) $MediaGroup->children($namespaces['media'])->content->attributes()->url);
-			  $tmp->thumbnail = trim((string) $MediaGroup->children($namespaces['media'])->thumbnail->attributes()->url);
-			  $tmp->description = trim((string) $MediaGroup->children($namespaces['media'])->description);
+			  $tmp->author  = 'Grace Communion International';
+			  $tmp->uri  = $xml->channel->link;
+			  $tmp->updated =  date('Y-m-d', strtotime(trim((string) $item->pubDate)));
+			  $tmp->link = trim((string) $item->link);
+			  $tmp->url = trim((string) $item->enclosure->attributes()->url);
+			  $tmp->thumbnail = 'https://i1.ytimg.com/vi/'.$tmp->id.'/hqdefault.jpg';
+			  $tmp->description = trim((string) $item->description);
+			    
 			  
               // wp post attribs
               $tmp->post_title = $tmp->title;
 			  $tmp->thumbnail_url = $tmp->thumbnail;
 			  $tmp->permalink = $tmp->link;
 			  $tmp->post_type = 'media-youtube-spol';
-			  $tmp->post_date = date('Y-m-d', strtotime(trim((string) $item->published)));
+			  $tmp->post_date = $tmp->updated;
 			  $tmp->post_modified = $tmp->updated;
 			  
 			  $remove_url_regex = "@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@";			 
