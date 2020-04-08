@@ -262,7 +262,7 @@ HTML;
 	}
 
         if (!empty($video_url)) {
-            $media_html .= imic_video_embed($custom['imic_sermons_url'][0], '100%', '650px', $autoplay);
+            $media_html .= "<div class='featured-media'>" . imic_video_embed($custom['imic_sermons_url'][0], '100%', '100%', $autoplay) . "</div>";
         }
         elseif (!empty($attach_full_audio)) {
             $media_html .= '<audio class="audio-player" src="' . $attach_full_audio . '" type="audio/mp3" controls></audio>';
