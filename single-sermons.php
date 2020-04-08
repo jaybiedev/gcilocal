@@ -58,7 +58,7 @@ echo '<a href="' . get_template_directory_uri() . '/download/download.php?file='
 <article class="post-content">
 <?php
 if (!empty($custom['imic_sermons_url'][0]) && $sermon_video_option == 1) {
-    echo '<div class="video-container">' . imic_video_embed($custom['imic_sermons_url'][0], '200', '150') . '</div>';
+    echo '<div class="video-container">' . imic_video_embed($custom['imic_sermons_url'][0], '90%', '450') . '</div>';
 } else if (!empty($custom_video_mp4)&& $sermon_video_option == 2) { ?>
 <div class="video-container">
 	<video width="320" height="240" poster="<?php echo $custom_video_poster; ?>" controls preload="none" class="custom-video">
@@ -76,7 +76,7 @@ if (!empty($custom['imic_sermons_url'][0]) && $sermon_video_option == 1) {
 	</video>
 </div>
 <?php } else if (!empty($custom['imic_sermons_url'][0])) {
-    echo '<div class="video-container">' . imic_video_embed($custom['imic_sermons_url'][0], '200', '150') . '</div>';
+    echo '<div class="video-container">' . imic_video_embed($custom['imic_sermons_url'][0], '90%', '450') . '</div>';
 }
 if (!empty($attach_full_audio)) {
 ?>

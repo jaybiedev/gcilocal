@@ -356,10 +356,14 @@ if (!function_exists('imic_content_filter')) {
 /* VIDEO EMBED FUNCTIONS
   ================================================== */
 if (!function_exists('imic_video_embed')) {
-    function imic_video_embed($url, $width = 200, $height = 150,$autopaly=0) {
+    function imic_video_embed($url, $width = 'auto', $height = 650,$autopaly=0) {
         if (strpos($url, 'youtube') || strpos($url, 'youtu.be')) {
             return imic_video_youtube($url, $width, $height,$autopaly);
-        } else {
+        } 
+	elseif (strpos($url, 'facebook') || strpos($url, 'fb.me')) {
+            return embed_video_facebook($url, $width, $height,$autopaly);
+        }
+	else {
             return imic_video_vimeo($url, $width, $height,$autopaly);
         }
     }
@@ -384,6 +388,17 @@ if (!function_exists('imic_video_vimeo')) {
     }
 }
 
+/* Video facebook
+  ================================================== */
+if (!function_exists('embed_video_facebook')) {
+   function embed_video_facebook($url, $width = 'auto', $height = 600,$autopaly) {
+	$video_url_encoded = urlencode($url); 
+	$html =<<<HTML
+<iframe style="border: none; overflow: hidden;" src="https://www.facebook.com/plugins/video.php?href={$video_url_encoded}" width="{$width}" height="{$height}" style="min-height:600px; width:auto;"  frameborder="0" scrolling="no" allowfullscreen="allowfullscreen"></iframe>
+HTML;
+	return $html; 
+  }
+}
 /* Soundcloud Audio
 ====================================================== */
 //Get the SoundCloud URL

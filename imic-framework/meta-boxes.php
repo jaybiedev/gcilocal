@@ -684,7 +684,7 @@ $meta_boxes[] = array(
             'desc' => __("Select Video Option.", 'framework'),
             'type' => 'select',
             'options' => array(
-                '1' => __('By Vimeo/Youtube URL', 'framework'),
+                '1' => __('By Vimeo/Youtube URL/Facebook', 'framework'),
                 '2' => __('Custom Video', 'framework'),
             ),
         ),
@@ -724,7 +724,7 @@ $meta_boxes[] = array(
         array(
             'name' => __('Sermon Url', 'framework'),
             'id' => $prefix . 'sermons_url',
-            'desc' => __("Enter vimeo/youtube url for Sermons.", 'framework'),
+            'desc' => __("Enter vimeo/youtube url/facebook video url for Sermons.", 'framework'),
             'type' => 'url',
         ),
          // HEADING

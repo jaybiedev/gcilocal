@@ -6,7 +6,8 @@ if (empty($featured_media_id)) {
     require_once(__DIR__ . '/_latest_sermon.php');
 }
 else {
-    $post =  get_post($featured_media_id);
-    $Featurebox = new Featurebox($post->ID);
+    // $post =  get_post($featured_media_id);
+    // $Featurebox = new Featurebox($post->ID);
+    $Featurebox = new Featurebox($featured_media_id);
     echo $Featurebox->render();
 }

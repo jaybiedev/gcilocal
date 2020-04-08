@@ -17,6 +17,8 @@ $front_page_id = get_option( 'page_on_front' );
 $pageOptions = imic_page_design('',8); //page design options
 imic_sidebar_position_module();
 $show_featured_article = get_post_meta($front_page_id,'imic_featured_article',true);
+$show_featured_media = get_post_meta($front_page_id,'imic_featured_media',true);
+// $featured_media_id = get_post_meta($front_page_id,'imic_home_featured_media',true);
 
 // flags for News and Events
 $show_recent_news_area = get_post_meta($front_page_id,'imic_imic_recent_posts',true);
@@ -389,10 +391,11 @@ if($imic_upcoming_events_area==1)  {
         </div>
 		<?php } ?>
     </div>
+    <?php if ($show_featured_media=="1")  { ?>
     <div class="sermon featuredbox navy" style="clear:both;"> 
         <?php require_once(get_template_directory() . "/lib/view/home/_featured_media.php"); // falls back to latest sermon, and latest spol?>
     </div>
-    
+    <?php } ?>
     <?php 
     if ($show_recent_news_area == "1" || $show_recent_media_area == "1"
         || $show_recent_events_area  == "1"|| $show_recent_articles_area  == "1"

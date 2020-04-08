@@ -253,16 +253,23 @@ HTML;
             $all_sermon_url .= "/sermons";
 
         $media_html = null;
+
+	$content = $this->Post->post_content;
+	if (!empty($content)) {
+		$media_html =<<<HTML
+<div class="page-content" style="margin:-50px auto;width:90%, line-height: 1.7rem; color: #efefef;">{$content}</div>
+HTML;
+	}
+
         if (!empty($video_url)) {
-            $media_html .= imic_video_embed($custom['imic_sermons_url'][0], '100%', '100%', $autoplay);
+            $media_html .= imic_video_embed($custom['imic_sermons_url'][0], '100%', '650px', $autoplay);
         }
         elseif (!empty($attach_full_audio)) {
             $media_html .= '<audio class="audio-player" src="' . $attach_full_audio . '" type="audio/mp3" controls></audio>';
         }
-
         $html =<<<HTML
         <div class="card text-align-center">
-            <div class="view overlay">{$media_html}</div>
+            <div class="view overlay" style="height:auto;">{$media_html}</div>
             <div class="card-body">
                 <!--Title-->
                 <h2 class="card-title text-align-center"><a href="{$this->Post->permalink}" class="text-primary">{$this->Post->post_title}</a></h2>
