@@ -257,8 +257,8 @@ HTML;
             $all_sermon_url .= "/sermons";
 
         $media_html = null;
-
-	$content = $this->Post->post_content;
+        $image_url = get_the_post_thumbnail_url($this->post_id);
+        $content = $this->Post->post_content;
 	if (!empty($content)) {
 		$media_html =<<<HTML
 <div class="page-content" style="margin:-50px auto;width:90%, line-height: 1.7rem; color: #efefef;">{$content}</div>
@@ -271,6 +271,11 @@ HTML;
         elseif (!empty($attach_full_audio)) {
             $media_html .= '<audio class="audio-player" src="' . $attach_full_audio . '" type="audio/mp3" controls></audio>';
         }
+        elseif (!empty($image_url)) {
+        	$media_html .= "<div class='featured-media-image' 
+                                 style=\"margin-top: 20px;background:url('{$image_url}') no-repeat;background-size:contain;\">
+                       </div>";
+	}
         $html =<<<HTML
         <div class="card text-align-center">
             <div class="view overlay" style="height:auto;">{$media_html}</div>
