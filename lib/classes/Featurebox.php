@@ -162,12 +162,16 @@ HTML;
         }
         
         $permalink = $this->Post->permalink;
+
+	$target = "target='gcitab'";
         if ($this->Post->post_type == 'media-youtube-spol') {
             $spol_url= $this->getDestinationUrl('imic_media_spol_page_url');
 
-            if (!empty($spol_url))
+            if (!empty($spol_url)) {
                 $permalink = $spol_url . "?yt={$this->Post->id}&title={$this->Post->post_title}#spol-play";
-        }
+       		$target = "";
+	    }
+	}
                 
         $image_url = $this->getImageUrl();
         $html =<<<HTML
@@ -175,7 +179,7 @@ HTML;
 
         <!--Card image-->
         <div class="view overlay" style="background:url('{$image_url}')">
-            <a href="{$permalink}">
+            <a href="{$permalink}" {$target}>
             <i class="fa fa-play-circle" post-type="{$this->Post->post_type}" media-url="{$this->Post->permalink}"></i>
             </a>
         </div>

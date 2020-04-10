@@ -25,23 +25,23 @@ class Spol {
 
 	public function getAll() {
 
-	    if (!empty($this->items))
+	    $debug = false;
+	    if (!$debug && !empty($this->items))
 	        return $this->items;
 	    
 		// nexttime is the filetime the cached json file should be refreshed.
-		if (time() > $this->nexttime) {
+		if ($debug || time() > $this->nexttime) {
 			//$yt_channel_id = "UCcjkt-3-U8mogW8QtO9Yr6Q";
 			//$url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . $yt_channel_id;
 			// Office Speaking of Life feed
 			$url="https://www.gci.org/feed/?post_type=videos&media-categories=speaking-of-life&attach=video";
-
+	    		
 			$xml = simplexml_load_file($url);
 
 			$namespaces = $xml->getNamespaces(true); // get namespaces
 			 
 			$items = array();
 			foreach ($xml->channel->item as $item) {
-
 			  $tmp = new stdClass();
 			  $tmp->id = trim((string) $item->children($namespaces['yt'])->videoId);
 			  $tmp->title = trim((string) $item->title);
