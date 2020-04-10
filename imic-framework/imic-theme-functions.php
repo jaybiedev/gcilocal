@@ -2070,6 +2070,7 @@ return $url;
 if(!function_exists('imic_get_event_timeformate')) {
 function imic_get_event_timeformate($time,$date,$post_id = null,$key = null, $single = false){
 #check all day event
+$time_offset = get_option('gmt_offset');
 $allday    = get_post_meta($post_id, 'imic_event_all_day', true);
 $time = explode('|',$time);
 $date = explode('|',$date);
@@ -2082,6 +2083,14 @@ $time_format = get_option('time_format');
 //get date format
 $date_format = get_option('date_format');
 $time_opt = $date_opt = '';
+
+$time_from = $time[0];
+
+
+if (strpos($time_from, '-') === false  && strpos($time_from, '+') === false) {
+  $time_from = $time_from . $time_offset;
+}
+
 $event_dt_opt = ($single==true)?'2':$event_dt_opt;
 	switch($event_tm_opt)
 	{
@@ -2112,12 +2121,15 @@ $event_dt_opt = ($single==true)?'2':$event_dt_opt;
 			}
 		 break;
 		 case '2':
-		 if((!empty($time[0]) && !empty($time[1])) &&
-           ($time[0] != strtotime(date('23:59')) || $time[1] != strtotime(date('23:59'))))
+
+		 if((!empty($time_from) && !empty($time[1])) &&
+           ($time_from != strtotime(date('23:59')) || $time[1] != strtotime(date('23:59'))))
 			{
-				 $time_opt_0 = date_i18n($time_format, $time[0]);
+				 $time_opt_0 = date_i18n($time_format, $time_from);
+				 $time_opt_0 = date($time_format, $time_from);
 				 $time_opt_1 = date_i18n($time_format, $time[1]);
-				 if($time[0] != $time[1])
+				 $time_opt_1 = date($time_format, $time[1]);
+				 if($time_from != $time[1])
 				 {
 				   $time_opt =  $time_opt_0.' - '.$time_opt_1;
 				 }
@@ -2128,11 +2140,12 @@ $event_dt_opt = ($single==true)?'2':$event_dt_opt;
 		   }
 		    else
 			{
-				if($allday || empty($time[0])||$time[0] == strtotime(date('23:59'))||$time[1] == strtotime(date('23:59')))
+				if($allday || empty($time_from)||$time_from == strtotime(date('23:59'))||$time[1] == strtotime(date('23:59')))
 				{
 					$time_opt = __('All Day','framework');
 				}
 			}
+
 		 break;
 		 default : 
 		  if(!empty($time[0]))
@@ -2209,6 +2222,8 @@ $event_dt_opt = ($single==true)?'2':$event_dt_opt;
 		  }
 		 break;
 	}
+
+
 	return  $time_opt .'BR'.$date_opt;
 }
 }

@@ -20,8 +20,11 @@ class PostHelper {
         
         if (empty($page_id))
             $page_id = get_option( 'page_on_front' );
+
+	$date_format = get_option( 'date_format' );
+        $time_format = get_option( 'time_format' );
         
-        // news
+	// news
         if (empty($card_news)) {
             $post_category = get_post_meta($page_id,'imic_recent_post_taxonomy',true);
             $posts_per_page = get_post_meta($page_id, 'imic_posts_to_show_on', true);
@@ -114,11 +117,11 @@ class PostHelper {
                     $eventEndTime   =  strtotime(get_post_meta($post_id, 'imic_event_end_tm', true));
                     $eventEndDate   =  strtotime(get_post_meta($post_id, 'imic_event_end_dt', true));                    
                     // override
-                    $item->caption = date('F j, Y D.', strtotime($eventStartDate)) . " @{$eventStartTime}";                    
+                    $item->caption = date('F j, Y D.', strtotime($eventStartDate)) . " @" . self::getFormattedTime($eventStartTime);                    
                 }
                 $Featurebox = new Featurebox();
                 // inject Post
-                $Featurebox->post_id = $item->ID;
+                $Featurebox->post_id = $post_id; //$item->ID;
                 $Featurebox->Post = $item;
                 $card_events[] = $Featurebox;
                 unset($Featurebox);
@@ -198,10 +201,14 @@ class PostHelper {
                 $card_all = array_merge($card_all, $card_gallery);
             }
         }
-            
+        
+	/* 
         usort($card_all, function($previous, $next) {
-            return ($next->Post->post_date > $previous->Post->post_date);
+            return ($previous->Post->post_date - $next->Post->post_date);
         });
+	*/
+
+	usort($card_all, 'comparePostDate');
         $cards = $card_all;
         
         /*
@@ -283,4 +290,20 @@ class PostHelper {
 
         return $menu_items;
     }
+
+    function getFormattedTime($_time)
+    {
+        static $time_format;
+
+        if (empty($time_format))
+           $time_format = get_option('time_format');
+
+	return date($time_format, strtotime($_time)); 
+    }
+
+    function comparePostDate($PreviousPost, $NextPost) { 
+        $datetime1 = strtotime($PreviousPost->post_date); 
+        $datetime2 = strtotime($NextPost->post_date); 
+        return $datetime1 - $datetime2; 
+    }  
 }
