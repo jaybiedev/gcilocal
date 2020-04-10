@@ -107,7 +107,7 @@ class PostHelper {
 
             $list_counter = 0;
             foreach ($recent_event_ids as $key=>$post_id) {
-                if ($list_counter > $events_per_page)
+                if ($list_counter >= $events_per_page)
                     break;
                     
                 if(preg_match('/^[0-9]+$/', $post_id)) {
