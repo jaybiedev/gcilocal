@@ -362,8 +362,15 @@ if($imic_upcoming_events_area==1)  {
         </div>
     <?php
     }
+    elseif ($imic_latest_sermon_events == 'latest_sermon') {
+        echo '<div class="notice-bar latest-sermon bg-navy navy">
+                    <div class="row">';
+                     require_once(get_template_directory() . "/lib/view/home/_latest_sermon.php");
+                    echo '</div>
+            </div>';
+    }
     else {
-        echo '<div class="notice-bar latest-sermon">
+        echo '<div class="notice-bar custom-message">
                 <div class="container">
                     <div class="row">';
                     echo (do_shortcode($imic_custom_message));
@@ -371,6 +378,7 @@ if($imic_upcoming_events_area==1)  {
                 </div>
             </div>';
     }
+
 }
 ?><!-- End Notice Bar --> 
 

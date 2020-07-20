@@ -1857,7 +1857,7 @@ body.home p {
 
 /* Added in v1.2 */
 .notice-bar.latest-sermon{
-	padding-bottom:0;
+/*	padding-bottom:0; */
 }
 .latest-sermon h3{
 	line-height:30px;
@@ -3919,6 +3919,7 @@ p.demo_store{
 /* Added in v1.7 */
 .notice-bar .container{
 	position:relative;
+        padding: 40px;
 }
 .notice-bar .container > .row{
 	position:relative;
@@ -4553,9 +4554,10 @@ only screen and (                min-resolution: 2dppx) {
 	font-size: 1em;
 }
 
-.featuredbox div.featured-media {
-    height: 550px;
-    width: 60%;
+.featuredbox div.featured-media,
+.latest-sermon div.featured-media {
+    height: 600px;
+    width: 75%;
     margin: 0 auto;
 }
 .featuredbox div.featured-media-image {
