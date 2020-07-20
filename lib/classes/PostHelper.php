@@ -208,7 +208,23 @@ class PostHelper {
         });
 	*/
 
-	usort($card_all, 'comparePostDate');
+	//usort($card_all, 'comparePostDate');
+		$dates=array();
+		foreach ($card_all as $card) {
+			$dates[] = $card->Post->post_date;
+		}
+		array_multisort($dates, SORT_DESC, $card_all);
+		
+		 /* Debug
+		echo "/n<!-- --------------------------------------------------------------------------------\n";
+		echo "Dates:\n";
+		print_r($dates);
+		echo "\n\nCard_all:\n";
+		print_r($card_all);
+		echo "/n--------------------------------------------------------------------------------- -->\n";
+		// */
+		
+		
         $cards = $card_all;
         
         /*
