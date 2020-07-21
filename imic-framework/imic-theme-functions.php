@@ -2097,7 +2097,7 @@ $event_dt_opt = ($single==true)?'2':$event_dt_opt;
 		 case '0':
 		    if(!empty($time[0]) && $time[0] != strtotime(date('23:59')))
 			{
-		      $time_opt = date_i18n($time_format, $time[0]);
+		      $time_opt = date($time_format, $time[0]);
 			}
 			else
 			{
@@ -2110,7 +2110,7 @@ $event_dt_opt = ($single==true)?'2':$event_dt_opt;
 		 case '1':
 			 if(!empty($time[1]) && $time[1] != strtotime(date('23:59')))
 			 {
-			  $time_opt = date_i18n($time_format, $time[1]);
+			  $time_opt = date($time_format, $time[1]);
 			 }
 			 else
 			 {
@@ -2125,9 +2125,9 @@ $event_dt_opt = ($single==true)?'2':$event_dt_opt;
 		 if((!empty($time_from) && !empty($time[1])) &&
            ($time_from != strtotime(date('23:59')) || $time[1] != strtotime(date('23:59'))))
 			{
-				 $time_opt_0 = date_i18n($time_format, $time_from);
+				 //$time_opt_0 = date_i18n($time_format, $time_from);
 				 $time_opt_0 = date($time_format, $time_from);
-				 $time_opt_1 = date_i18n($time_format, $time[1]);
+				 //$time_opt_1 = date_i18n($time_format, $time[1]);
 				 $time_opt_1 = date($time_format, $time[1]);
 				 if($time_from != $time[1])
 				 {
@@ -2150,7 +2150,7 @@ $event_dt_opt = ($single==true)?'2':$event_dt_opt;
 		 default : 
 		  if(!empty($time[0]))
 		  {
-		    $time_opt = date_i18n($time_format, $time[0]);
+		    $time_opt = date($time_format, $time[0]);
 		  }
 		 break;
 	}
