@@ -4566,6 +4566,14 @@ only screen and (                min-resolution: 2dppx) {
     margin: 0 auto;
 }
 
+@media only screen and (min-width: 1800px) {
+   .featuredbox div.featured-media,
+   .latest-sermon div.featured-media {
+        width: 60%;
+        height: 650px;
+   }
+}
+
 @media only screen and (max-width: 800px) {
    .featuredbox div.featured-media {
         height:320px;
