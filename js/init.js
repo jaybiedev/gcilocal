@@ -61,12 +61,13 @@ jQuery(function($) {
                             .after('<img src="' + $('#image_path').val() + '/images/assets/ajax-loader.gif" class="loader" />')
                             .attr('disabled', 'disabled');
                     $.post(action, {
-                        name: $('#name').val(),
-                        email: $('#email').val(),
-                        phone: $('#phone').val(),
-                        comments: $('#comments').val(),
-                        subject: $('#subject').val(),
-                        admin_email: $('#admin_email').val(),
+                        name: $(this.name).val(),
+                        email: $(this.email).val(),
+                        phone: $(this.phone).val(),
+                        comments: $(this.comments).val(),
+                        subject: $(this.subject).val(),
+                        admin_email: $(this.admin_email).val(),
+						wpzerospam_key: $(this.wpzerospam_key).val(),
                     },
                             function(data) {
                                 document.getElementById('message').innerHTML = data;

@@ -33,9 +33,14 @@ imic_sidebar_position_module(); ?>
                     echo $custom['imic_contact_map_box_code'][0];
                     echo '</div>';
                 }
+				if (function_exists('wpzerospam_key_check')) {
+					$spamclass='wpzerospam';
+				} else {
+					$spamclass='';
+				}
                 ?>
                    <div class="row">
-                    <form method="post" id="contactform" name="contactform" class="contact-form-native" action="<?php echo get_template_directory_uri() ?>/mail/contact.php">
+                    <form method="post" id="contactform" name="contactform" class="contact-form-native <?php echo $spamclass; ?>" action="<?php echo get_template_directory_uri() ?>/mail/contact.php">
                    <div class="col-lg-12 margin-15">
                    Please enter your question, comment, or prayer request below.
                    </div>

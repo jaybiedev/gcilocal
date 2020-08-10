@@ -12,6 +12,12 @@ $email    = $_POST['email'];
 $phone    = $_POST['phone'];
 $subject     = $_POST['subject'];
 $comments = $_POST['comments'];
+if (function_exists('wpzerospam_key_check')) {
+	if (!wpzerospam_key_check()) {
+		echo '<div class="alert alert-error">'.__('Blocked by WP Zero Spam','framework').'</div>';
+		exit();
+	}
+}
 if(trim($name) == '') {
 	echo '<div class="alert alert-error">'.__('You must enter your name.','framework').'</div>';
 	exit();
