@@ -130,7 +130,7 @@ Savvy = {
 /**
  * menu tree used in the footer
  */
-$.fn.extend({
+jQuery.fn.extend({
     treed: function (o) {
 
         var openedClass = 'glyphicon-minus-sign';
