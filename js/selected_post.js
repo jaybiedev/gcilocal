@@ -1,7 +1,8 @@
 ( function ( $ ) {
     'use strict';
     $( document ).ready( function () {
-				$(".dynamic_cpt").live("change", function(){
+				//$(".dynamic_cpt").live("change", function(){
+				$(document).on("change", ".dynamic_cpt", function(){
 					var cpt = $(this).val();
 					var selected_cat = $("#selected_cat").val();
 					jQuery.ajax({

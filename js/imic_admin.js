@@ -459,7 +459,8 @@ jQuery(function(jQuery) {
     $imic_sermons_audio_upload.change(function() {
         sermon_audio_display();
     });
-    jQuery(".rwmb-text-list").live('click',function(){
+    //jQuery(".rwmb-text-list").live('click',function(){
+	jQuery(document).on('click','.rwmb-text-list',function(){
 	var text_name = jQuery(this).find('input[type=text]').attr('name');
         jQuery( "body" ).data("text_name", text_name );
         jQuery("label#Social input").removeClass("fb");

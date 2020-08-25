@@ -3,12 +3,14 @@
        jQuery('#upload_image_preview').hide();
        jQuery('#upload_category_button_remove').hide();
     }
-    jQuery('#upload_category_button_remove').live('click', function() {
+    //jQuery('#upload_category_button_remove').live('click', function() {
+    jQuery(document).on('click','#upload_category_button_remove', function() {
         jQuery('#upload_image_preview').attr('src','');
         jQuery('#category_url').val('');
         jQuery('#upload_image_preview').hide();
     })
-    jQuery('#upload_category_button').live('click', function() {
+    //jQuery('#upload_category_button').live('click', function() {
+    jQuery(document).on('click', '#upload_category_button', function() {
         var fileFrame = wp.media.frames.file_frame = wp.media({
             multiple: false
         });

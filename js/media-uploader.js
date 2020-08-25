@@ -1,5 +1,6 @@
 jQuery(function($){
-    $(".select-about-image").live('click', function() {
+    //$(".select-about-image").live('click', function() {
+    $(document).on('click', '.select-about-image', function() {
         var elementId = $(this).attr('id');
         var displayId = elementId.replace('select-image', 'display-image');
 		var textId = elementId.replace('select-image', 'description');
