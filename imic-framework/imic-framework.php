@@ -112,7 +112,7 @@ if (!function_exists('imic_enqueue_scripts')) {
 		wp_register_script('imic_jquery_magnific', IMIC_THEME_PATH . '/plugins/magnific/jquery.magnific-popup.min.js', array(), $theme_info->get( 'Version' ), true);
         wp_register_script('imic_jquery_helper_plugins', IMIC_THEME_PATH . '/js/helper-plugins.js', array(), $theme_info->get( 'Version' ), false);
         wp_register_script('imic_jquery_bootstrap', IMIC_THEME_PATH . '/js/bootstrap.js', array(), $theme_info->get( 'Version' ), false);
-        wp_register_script('imic_jquery_waypoints', IMIC_THEME_PATH . '/js/waypoints.js', array(), $theme_info->get( 'Version' ), true);
+        wp_register_script('imic_jquery_waypoints', 'https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js', array(), $theme_info->get( 'Version' ), true);
         wp_register_script('imic_jquery_mediaelement_and_player', IMIC_THEME_PATH . '/plugins/mediaelement/mediaelement-and-player.min.js', array(), $theme_info->get( 'Version' ), true);
         wp_register_script('imic_jquery_init', IMIC_THEME_PATH . '/js/init.js', array(), $theme_info->get( 'Version' ), false);
         wp_register_script('imic_jquery_flexslider', IMIC_THEME_PATH . '/plugins/flexslider/js/jquery.flexslider.js', array(), $theme_info->get( 'Version' ), true);

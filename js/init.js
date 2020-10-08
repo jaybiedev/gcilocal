@@ -388,7 +388,7 @@ jQuery(function($) {
                 });
             }
         });
-        $(window).load(function() {
+        $(window).on('load', function() {
             IsoTopeCont = $(".isotope-grid");
             IsoTopeCont.isotope({
                 itemSelector: ".grid-item",
@@ -497,7 +497,7 @@ jQuery(function($) {
         width = parseInt((child_width - the_width) / 2);
         $(this).find("ul").css('left', -width);
     });
-    $(window).load(function() {
+    $(window).on('load', function() {
         $(".format-image").each(function() {
             $(this).find(".media-box").append("<span class='zoom'><i class='fa fa-search'></i></span>");
         });
