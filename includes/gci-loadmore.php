@@ -1,53 +1,29 @@
 <?php
 /*
-  Template Name: sermons
+ * Ajax load more Custom Post Types
  */
-get_header();
-$pageOptions = imic_page_design(); //page design options
-imic_sidebar_position_module();
-global $imic_options;
-$options = get_option('imic_options');
-?>
+function gci_loadmore_setup() {
+	global $wp_query; 
+	$jstime = filemtime(dirname(__FILE__).'/../js/gci-loadmore.js');
+	wp_register_script( 'gci_loadmore_js', get_stylesheet_directory_uri() . '/js/gci-loadmore.js?v='.$jstime, array('jquery') );
+ 
+	wp_localize_script( 'gci_loadmore_js', 'gci_loadmore', array(
+		'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php'
+	));
+ 	wp_enqueue_script( 'gci_loadmore_js' );
+}
+add_action( 'wp_enqueue_scripts', 'gci_loadmore_setup' );
 
-<div class="container">
-    <div class="row">
-        <div class="<?php echo $pageOptions['class']; ?>" id="content-col">
-        <?php 
-			
-			while(have_posts()):the_post();
-			if($post->post_content!="") :
-					echo '<div class="page-content">';
-                              the_content();        
-					echo '</div>';
-                              echo '<div class="spacer-20"></div>';
-                      endif;	
-			endwhile;
-        //$temp_wp_query = clone $wp_query; // only needed because of query_posts(), now removed
-		if ($options['switch_sermon_filters'] == 1) { ?>
-                <div class="search-filters">
-                    <?php echo do_shortcode( '[imic-searchandfilter]' ); ?>
-                </div><?php 
-		}
-		$squery = new WP_Query(array(
-            'post_type' => 'sermons',
-            'paged' => get_query_var('paged')
-        ));
-		/* very, very bad practice
-        query_posts(array(
-            'post_type' => 'sermons',
-            'paged' => get_query_var('paged')
-        ));
-		*/
-        if ($squery->have_posts()): ?>
-			<script>
-				var posts = '<?php echo str_replace("'","\'",serialize( $squery->query_vars )); ?>',
-				current_page = <?php echo $squery->query_vars['paged'] + 1; ?>,
-				max_page = <?php echo $squery->max_num_pages; ?>
-			</script>
-            <div class="sermon-archive loadmore-posts"> 
-                <!-- Sermons Listing -->
-                <?php
-                while ($squery->have_posts()) : $squery->the_post();
+function gci_loadmore_ajax_handler() {
+	$args = unserialize( stripslashes( $_POST['query'] ));
+	$args['paged'] = $_POST['page'] + 1;
+	$cptType = $_POST['cptType'];
+ 
+	query_posts( $args );
+ 
+	if( have_posts() ) :
+		while( have_posts() ): the_post();
+			if ($cptType == 'sermons') { // formatting for sermons
 				if( '' != get_the_post_thumbnail() ) {
 											$class = "col-md-8";
 										} else {
@@ -104,22 +80,12 @@ $options = get_option('imic_options');
                             </div>
                         </div>
                     </article>
-          <?php endwhile;
-			if ($squery->max_num_pages > 1){
-				echo '<div class="btn btn-primary gci-loadmore"><a data-type="sermons" href="javascript:;">More</a></div>';
+			<?php
 			}
-			?>
-            </div>
-        </div>
-        <?php endif; 
-        //$wp_query = clone $temp_wp_query; ?>
-        <?php if(!empty($pageOptions['sidebar'])){ ?>
-        <!-- Start Sidebar -->
-        <div class="col-md-3 sidebar" id="sidebar-col">
-            <?php dynamic_sidebar($pageOptions['sidebar']); ?>
-        </div>
-        <!-- End Sidebar -->
-        <?php } ?>
-    </div>
-</div>
-<?php get_footer(); ?>
+		endwhile;
+	endif;
+	die;
+}
+add_action('wp_ajax_loadmore', 'gci_loadmore_ajax_handler'); // wp_ajax_{action}
+add_action('wp_ajax_nopriv_loadmore', 'gci_loadmore_ajax_handler'); // wp_ajax_nopriv_{action}
+?>

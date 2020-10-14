@@ -81,6 +81,7 @@ require_once(IMIC_FILEPATH . '/includes/ReduxCore/framework.php');
 require_once(IMIC_FILEPATH . '/includes/sample/sample-config.php');
 require_once(IMIC_FILEPATH . '/imic-framework/podcasting/podcast-functions.php');
 include_once(IMIC_FILEPATH . '/imic-framework/imic-framework.php');
+require_once(IMIC_FILEPATH . '/includes/gci-loadmore.php');
 /* -------------------------------------------------------------------------------------
   For Paginate
   ----------------------------------------------------------------------------------- */
