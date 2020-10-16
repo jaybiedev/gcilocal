@@ -104,12 +104,13 @@ $options = get_option('imic_options');
                             </div>
                         </div>
                     </article>
-          <?php endwhile;
+          <?php endwhile;?>
+            </div>
+		  <?php
 			if ($squery->max_num_pages > 1){
 				echo '<div class="btn btn-primary gci-loadmore"><a data-type="sermons" href="javascript:;">More</a></div>';
 			}
 			?>
-            </div>
         </div>
         <?php endif; 
         //$wp_query = clone $temp_wp_query; ?>
