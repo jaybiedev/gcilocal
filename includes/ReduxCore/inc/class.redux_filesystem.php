@@ -23,9 +23,10 @@
 
             public $fs_object = null;
 
-            public $parent = null;
+            public $parent = ;
 
             public function __construct() {
+				$this->parent = new stdClass();
                 $this->parent->admin_notices[] = array(
                     'type'    => 'error',
                     'msg'     => '<strong>' . __( 'File Permission Issues', 'redux-framework' ) . '</strong><br/>' . sprintf( __( 'We were unable to modify required files. Please check your permissions, or modify your wp-config.php file to contain your FTP login credentials as <a href="%s" target="_blank">outlined here</a>.', 'redux-framework' ), 'https://codex.wordpress.org/Editing_wp-config.php#WordPress_Upgrade_Constants' ),
