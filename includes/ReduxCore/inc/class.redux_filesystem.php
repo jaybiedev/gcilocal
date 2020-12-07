@@ -23,7 +23,7 @@
 
             public $fs_object = null;
 
-            public $parent = new stdClass();
+            public $parent = null;
 
             public function __construct() {
 				$this->parent = new stdClass();
