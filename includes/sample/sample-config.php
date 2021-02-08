@@ -538,7 +538,7 @@ $this->sections[] = array(
 			'required' => array('header_layout','!=','4'),
 			'title'    => __('Sticky Header Link Color', 'imic-framework-admin'),
 			'desc'     => __('Set the sticky header/menu links color, hover, active.', 'imic-framework-admin'),
-			'output'   => array('.is-sticky .navigation > ul > li > a'),
+			'output'   => array('.is-sticky .navbar-collapse i,.is-sticky ul.nav.navbar-nav > li > a'),
 		),
 		array(
 			'id'       => 'h4_sticky_link_color',
@@ -849,7 +849,7 @@ $this->sections[] = array(
 			'line-height' => false,
 			'text-transform'=> true,
 			'letter-spacing' => true,
-			'output'      => array('.navigation > ul > li > a'),
+			'output'      => array('.navbar-collapse i,ul.nav.navbar-nav > li > a'),
 			'units'       =>'px',
 		),
 		array(
@@ -858,7 +858,7 @@ $this->sections[] = array(
 			'title'    => __('Main Navigation Link Color', 'imic-framework-demo'),
 			'subtitle' => __('Default Regular: #5E5E5E<br>Hover: Your primary color<br>Active: Your primary color', 'imic-framework-demo'),
 			'desc'     => __('Set the top navigation parent links color, hover, active.', 'imic-framework-demo'),
-			'output'   => array('.navigation > ul > li > a'),
+			'output'   => array('.navbar-collapse i,ul.nav.navbar-nav > li > a'),
 		),
 		array(  'id' => 'main_dropdown_background_alpha',
 				'type' => 'color_rgba',
