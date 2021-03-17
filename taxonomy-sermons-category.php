@@ -74,7 +74,7 @@ $options = get_option('imic_options');
 									echo imic_excerpt(100);
 									echo '</div>';
 									 ?>
-                                    <p><a href="<?php the_permalink() ?>" class="btn btn-primary"><?php _e('Continue reading ', 'framework'); ?> <i class="fa fa-long-arrow-right"></i></a></p>
+                                    <p><a href="<?php the_permalink() ?>" class="btn btn-primary">View sermon  <i class="fa fa-long-arrow-right"></i></a></p>
                                 </div>
                             </div>
                         </div>
