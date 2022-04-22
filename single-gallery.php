@@ -72,12 +72,14 @@ break;
 default:
 if(!empty($thumb_id)){
 $large_src_i = wp_get_attachment_image_src($thumb_id, 'full');
-if(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 0){
-	$Lightbox_init = '<a href="'.esc_url($large_src_i[0]) .'" data-rel="prettyPhoto" class="media-box">';
-}elseif(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 1){
-	$Lightbox_init = '<a href="'.esc_url($large_src_i[0]) .'" title="'.get_the_title().'" class="media-box magnific-image">';
+if ($large_src_i) {
+	if(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 0){
+		$Lightbox_init = '<a href="'.esc_url($large_src_i[0]) .'" data-rel="prettyPhoto" class="media-box">';
+	}elseif(isset($imic_options['switch_lightbox']) && $imic_options['switch_lightbox']== 1){
+		$Lightbox_init = '<a href="'.esc_url($large_src_i[0]) .'" title="'.get_the_title().'" class="media-box magnific-image">';
+	}
+	echo $Lightbox_init;
 }
-echo $Lightbox_init;
 the_post_thumbnail($size_thumb);
 echo'</a>';
 }

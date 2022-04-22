@@ -10,7 +10,7 @@ $home_id = $id;
 
 // $custom_home = get_post_custom($home_id);
 $height = (int)get_post_meta($home_id,'imic_pages_slider_height',true);
-$height = ($height == '') ? '480' : $height;
+$height = (($height == '')||($height == '0')) ? '480' : $height;
 $breadpad = $height - 60;
 
 $custom_title = get_post_meta($home_id,'imic_post_page_custom_title',true);

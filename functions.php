@@ -269,10 +269,18 @@ add_action( 'wp_enqueue_scripts', 'replace_core_jquery_version' );
 
 // savvy
 function replace_text_wps($text){
+	$yt='';
+	if (array_key_exists('yt',$_REQUEST)) { 
+		$yt=$_REQUEST['yt']; 
+	}
+	$title='';
+	if (array_key_exists('title',$_REQUEST)) { 
+		$yt=$_REQUEST['title']; 
+	}
     $replace = array(
         // 'WORD TO REPLACE' => 'REPLACE WORD WITH THIS'
-        '[[q:yt]]' => $_REQUEST['yt'],
-        '[[q:title]]' => $_REQUEST['title'],     
+        '[[q:yt]]' => $yt,
+        '[[q:title]]' => $title,     
         '[[w:name]]' => get_option('blogname'),
     );
     $text = str_replace(array_keys($replace), $replace, $text);

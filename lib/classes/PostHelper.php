@@ -72,6 +72,11 @@ class PostHelper {
             
             // merge sermons and spols
             $media = array_merge($media, array_slice($spols, 0, $post_per_page - count($media)));
+			
+			echo "\n <!-- ================================================================================ \nMedia=\n";
+			print_r($media);
+			echo "\n ================================================================================= -->\n";
+			
 
             foreach ($media as $item) {
                 $Featurebox = new Featurebox();

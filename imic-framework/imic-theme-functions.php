@@ -2600,7 +2600,11 @@ if(!function_exists('imic_save_event'))
 	 {
 		 	//date_default_timezone_set('Antarctica/Troll');
 		  $query_string = base64_decode($_SERVER['QUERY_STRING']);
-		  parse_str($query_string);
+		  parse_str($query_string,$qsa);
+		  if (array_key_exists('action',$qsa)) { $action = $qsa['action']; }
+		  if (array_key_exists('id',$qsa)) { $id = $qsa['id']; }
+		  if (array_key_exists('key',$qsa)) { $key = $qsa['key']; }
+		  if (array_key_exists('autoplay',$qsa)) { $autoplay = $qsa['autoplay']; }
 		  if(isset($action) && isset($id) && isset($key) && $key == 'imic_save_event')
 		  {
 			  $custom_post          = get_post($id); 

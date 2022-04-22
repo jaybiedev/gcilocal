@@ -67,14 +67,14 @@ class Spol {
 					$items = array();
 					foreach ($xml->channel->item as $item) {
 					  $tmp = new stdClass();
-					  $tmp->id = trim((string) $item->children($namespaces['yt'])->videoId);
+					  $tmp->ID = trim((string) $item->children($namespaces['yt'])->videoId);
 					  $tmp->title = trim((string) $item->title);
 					  $tmp->author  = 'Grace Communion International';
 					  $tmp->uri  = $xml->channel->link;
 					  $tmp->updated =  date('Y-m-d', strtotime(trim((string) $item->pubDate)));
 					  $tmp->link = trim((string) $item->link);
 					  $tmp->url = trim((string) $item->enclosure->attributes()->url);
-					  $tmp->thumbnail = 'https://i1.ytimg.com/vi/'.$tmp->id.'/hqdefault.jpg';
+					  $tmp->thumbnail = 'https://i1.ytimg.com/vi/'.$tmp->ID.'/hqdefault.jpg';
 					  $tmp->description = trim((string) $item->description);
 						
 					  

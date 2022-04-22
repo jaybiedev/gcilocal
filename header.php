@@ -199,7 +199,7 @@ elseif ($online_giving_method == 'modal') {
               		}
                    	$header_image  = get_option($term_taxonomy . $t_id . "_image_term_id"); // Do the check
            		}
-                $default_header_image = $imic_options['header_image']['url'];
+                $default_header_image = $options['header_image']['url'];
                 if (!empty($header_image)) {
                    if (is_category() || !empty($term->term_id)) {
                         $src[0] = $header_image;

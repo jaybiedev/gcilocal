@@ -168,7 +168,7 @@ HTML;
             $spol_url= $this->getDestinationUrl('imic_media_spol_page_url');
 
             if (!empty($spol_url)) {
-                $permalink = $spol_url . "?yt={$this->Post->id}&title={$this->Post->post_title}#spol-play";
+                $permalink = $spol_url . "?yt={$this->Post->ID}&title={$this->Post->post_title}#spol-play";
        		$target = "";
 	    }
 	}
@@ -266,7 +266,7 @@ HTML;
 	}
 
         if (!empty($video_url)) {
-            $media_html .= "<div class='featured-media'>" . imic_video_embed($custom['imic_sermons_url'][0], '100%', '100%', $autoplay) . "</div>";
+            $media_html .= "<div class='featured-media'>" . imic_video_embed($custom['imic_sermons_url'][0], '100%', '100%', 0) . "</div>";
         }
         elseif (!empty($attach_full_audio)) {
             $media_html .= '<audio class="audio-player" src="' . $attach_full_audio . '" type="audio/mp3" controls></audio>';
