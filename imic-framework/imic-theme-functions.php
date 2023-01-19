@@ -2599,7 +2599,11 @@ if(!function_exists('imic_save_event'))
 	 function imic_save_event()
 	 {
 		 	//date_default_timezone_set('Antarctica/Troll');
-		  $query_string = base64_decode($_SERVER['QUERY_STRING']);
+		  if (array_key_exists('QUERY_STRING',$_SERVER)) {
+			$query_string = base64_decode($_SERVER['QUERY_STRING']);
+		  } else {
+			$query_string = '';
+		  }
 		  parse_str($query_string,$qsa);
 		  if (array_key_exists('action',$qsa)) { $action = $qsa['action']; }
 		  if (array_key_exists('id',$qsa)) { $id = $qsa['id']; }
