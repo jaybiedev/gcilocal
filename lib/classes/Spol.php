@@ -31,12 +31,10 @@ class Spol {
 	    
 		// nexttime is the filetime the cached json file should be refreshed.
 		if ($debug || time() > $this->nexttime) {
-			//$yt_channel_id = "UCcjkt-3-U8mogW8QtO9Yr6Q";
-			//$url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . $yt_channel_id;
-			// Office Speaking of Life feed
-			$url="https://www.gci.org/feed/?post_type=videos&media-categories=speaking-of-life&attach=video";
-	    	libxml_use_internal_errors();	
-			// stopped working....  $xml = simplexml_load_file($url);
+			// Home Office Speaking of Life feed
+			//$url="https://www.gci.org/feed/?post_type=videos&media-categories=speaking-of-life&attach=video";
+			// Equipper Speaking of Life/Sermon Bumper feed
+			$url="https://equipper.gci.org/rcl-json-video-feed";
 			
 			$query_header = array();
 			$ch = curl_init();
@@ -59,6 +57,40 @@ class Spol {
 				print_r($content);
 				echo "------------------------------------------------------------------------------------------- -->\n";
 			} else {
+				$sarr = json_decode($content,false);
+				foreach ($sarr as $item) {
+					$tmp = new stdClass();
+					$tmp->ID = trim((string) $item->youtubeID);
+					$tmp->title = trim((string) $item->title);
+					$tmp->author  = 'Grace Communion International';
+					$tmp->uri  = $item->url;
+					$tmp->updated =  $item->airdate;
+					$tmp->link = trim((string) $item->url);
+					$tmp->url = 'https://cloud.gci.org/dl/'.$item->fileCat.'/'.$item->fileID.'.mp4';
+					$tmp->thumbnail = 'https://i1.ytimg.com/vi/'.$tmp->ID.'/hqdefault.jpg';
+					$tmp->description = trim((string) $item->teaser);
+					
+					
+					// wp post attribs
+					$tmp->post_title = $tmp->title;
+					$tmp->thumbnail_url = $tmp->thumbnail;
+					$tmp->permalink = $tmp->link;
+					$tmp->post_type = 'media-youtube-spol';
+					$tmp->post_date = $tmp->updated;
+					$tmp->post_modified = $tmp->updated;
+					
+					$remove_url_regex = "@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@";			 
+					$tmp->caption = preg_replace($remove_url_regex, "", $tmp->description);
+					
+					$items[] = $tmp;
+					$fp = fopen($this->file, 'w');
+					fwrite($fp, json_encode($items));
+					fclose($fp);
+				}
+
+				/* This is the old code to deal with RSS feed syntax, replaced by above JSON syntax
+				
+				libxml_use_internal_errors();	
 				$xml=simplexml_load_string($content);
 				if ($xml) {
 
@@ -103,6 +135,7 @@ class Spol {
 					}
 					echo "------------------------------------------------------------------------------------------- -->\n";
 				}
+				*/
 			}
 		}
 

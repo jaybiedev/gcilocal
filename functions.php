@@ -271,12 +271,18 @@ add_action( 'wp_enqueue_scripts', 'replace_core_jquery_version' );
 function replace_text_wps($text){
 	$yt='';
 	if (array_key_exists('yt',$_REQUEST)) { 
-		$yt=$_REQUEST['yt']; 
+		$yt=sanitize_text_field($_REQUEST['yt']); 
 	}
 	$title='';
 	if (array_key_exists('title',$_REQUEST)) { 
-		$yt=$_REQUEST['title']; 
+		$title=sanitize_text_field($_REQUEST['title']); 
 	}
+	$search = [ '[[q:yt]]', '[[q:title]]', '[[w:name]]', '[[q:debug]]' ];
+	$replace = [ $yt, $title, get_option('blogname'), print_r($_REQUEST,true) ];
+	for ($i=0; $i < sizeof($search); $i++) {
+		$text = str_replace( $search[$i], $replace[$i], $text );
+	}
+	/*
     $replace = array(
         // 'WORD TO REPLACE' => 'REPLACE WORD WITH THIS'
         '[[q:yt]]' => $yt,
@@ -284,6 +290,7 @@ function replace_text_wps($text){
         '[[w:name]]' => get_option('blogname'),
     );
     $text = str_replace(array_keys($replace), $replace, $text);
+	*/
     return $text;
 }
 add_filter('the_content', 'replace_text_wps'); add_filter('the_excerpt', 'replace_text_wps');
